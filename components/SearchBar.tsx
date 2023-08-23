@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FiSearch } from "react-icons/fi"
-import { Input } from "./ui/input";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
@@ -14,7 +13,7 @@ const SearchBar = () => {
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="font-normal border-b border-white bg-black focus:outline-none max-w-[130px]" 
+        className="font-normal border-b border-white bg-black focus:outline-none max-w-[120px]" 
       />
     </form>
   );

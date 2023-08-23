@@ -22,14 +22,14 @@ const LinkItem: React.FC<{ linkData: linkDataProps }> = ({ linkData }) => {
 
 
   return (
-    <Link
-    className={clsx("text-sm uppercase focus:opacity-70 hover:opacity-70 mt-0.5 transition flex items-center gap-1", active && "font-extrabold", )}
-    href={href}
-  >
-    {Icon && <Icon size={10}/>}
-    <span className={clsx(Icon && "hidden xl:block", className)}>{label}</span>
+      <Link
+      className={clsx("text-sm uppercase focus:opacity-70 hover:opacity-70 mt-0.5 transition flex items-center gap-1", active && "font-extrabold", )}
+      href={href}
+    >
+      {Icon && <Icon size={10}/>}
+      <span className={clsx(Icon && "hidden xl:block", className)}>{label}</span>
 
-  </Link>
+    </Link>
   )
 }
 

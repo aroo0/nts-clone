@@ -1,5 +1,5 @@
 import NavBar from "./NavBar"
-import Radio from "./Radio"
+import Radio from "./RadioBar"
 
 interface HeaderProps {
   
