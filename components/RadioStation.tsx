@@ -1,55 +1,46 @@
-import usePlayer from "@/stores/usePlayer";
+"use client";
+
 import { Broadcast } from "@/types/live";
 import clsx from "clsx";
 import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
-import { useState, useEffect } from "react";
+import useRadioToggle from "@/hooks/useRadioToggle";
+import usePlayer from "@/stores/usePlayer";
+import { useEffect, useState } from "react";
 
 interface RadioStationProps {
   broadcast?: Broadcast;
   isLoading: boolean;
   stationName: string;
-  mobileRadioDescOpen: boolean
+  radioDescOpen: boolean;
 }
 
 const RadioStation: React.FC<RadioStationProps> = ({
   broadcast,
   isLoading,
   stationName,
-  mobileRadioDescOpen
+  radioDescOpen,
 }) => {
-  const { activePlayer, setActivePlayer, reset } = usePlayer();
+  const { activePlayer } = usePlayer();
+  const { toggleRadio } = useRadioToggle(stationName);
   const [isPlaying, setIsPlaying] = useState(false);
 
-
-  const detailsInfo = broadcast?.embeds.details
-  console.log(detailsInfo);
-
-
-  const toggleRadio = () => {
-    if (activePlayer === stationName) {
-      reset();
-      setIsPlaying(false);
-    } else {
-      reset()
-      setActivePlayer(stationName);
-      setIsPlaying(true);
-    }
-  };
-
   useEffect(() => {
-    if (activePlayer !== stationName) {
-      setIsPlaying(false)
+    if (activePlayer === stationName) {
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
     }
+  }, [activePlayer]);
 
-  }, [activePlayer])
-  
+  const detailsInfo = broadcast?.embeds.details;
+
   return (
     <div
       className={twMerge(
-        "flex items-center gap-1 px-1 bg-black hover:bg-neutral-700 cursor-pointer h-[33px] w-full border-white border-b lg:border-r transition-transform duration-300",
+        "flex items-center gap-1 px-1 bg-black hover:bg-neutral-700 cursor-pointer h-[34px] w-full border-white border-b lg:border-r transition-transform duration-300 ",
         isPlaying && "hover:bg-white bg-white",
-        mobileRadioDescOpen && "absolute translate-y-[-35px]"
+        radioDescOpen && "absolute translate-y-[-35px]"
       )}
       onClick={toggleRadio}
     >
@@ -70,13 +61,13 @@ const RadioStation: React.FC<RadioStationProps> = ({
           className={isLoading && "text-neutral-500 animate-pulse"}
         />
       )}
-      <div className="grid grid-cols-3 items-center truncate flex-1	">
+      <div className="grid lg:grid-cols-6 items-center truncate flex-1	">
         {isLoading ? (
           <div className="bg-neutral-500  h-3 animate-pulse w-full" />
         ) : (
           <p
             className={clsx(
-              "uppercase font-extrabold text-sm truncate  col-span-3 lg:col-span-2 mr-2",
+              "uppercase font-extrabold text-sm truncate lg:col-span-5 mr-2",
               isPlaying && "text-black"
             )}
           >

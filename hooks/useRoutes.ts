@@ -1,6 +1,7 @@
 import { useMemo } from "react"
 import { usePathname } from "next/navigation"
 import { FaRegUser } from "react-icons/fa"
+import { LuCalendarHeart } from "react-icons/lu"
 
 
 const useRoutes = () => {
@@ -44,6 +45,21 @@ const useRoutes = () => {
               href: "/my-nts",
               active: pathname === "/my-nts",
               icon: FaRegUser
+            },
+            csheduleOne: {
+              label: "Schedule Live 1",
+              href: "/schedule",
+              active: pathname === "/schedule",
+            },
+            scheduleTwo: {
+              label: "Schedule Live 2",
+              href: "/schedule/2",
+              active: pathname === "/schedule/2",
+            },
+            scheduleMy: {
+              label: "My Schedule",
+              href: "/schedule/my",
+              active: pathname === "/schedule/my",
             }
           };
         return routeData

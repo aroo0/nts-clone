@@ -18,7 +18,7 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
   return (
     <>
       {/* // Desktop nav */}
-      <nav className="hidden fixed w-full lg:flex h-[44px]  bg-black justify-between items-center p-2 z-[10]">
+      <nav className="hidden fixed w-full lg:flex h-[44px]  bg-black justify-between items-center p-2 z-[10] border-b border-white">
         <div className="flex gap-6 items-center">
           {logo}
           <LinkItem linkData={routes.radio} />
@@ -38,7 +38,7 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
         </div>
       </nav>
       {/* Mobile */}
-      <nav className="fixed lg:hidden w-full flex h-[44px]  bg-black justify-between items-center p-2  z-[10]">
+      <nav className="fixed lg:hidden w-full flex h-[44px]  bg-black justify-between items-center p-2 z-[10] border-b border-white">
           {logo}
           <SearchBar />
           <GiHamburgerMenu size={24} />
