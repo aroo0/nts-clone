@@ -47,27 +47,68 @@ body,
   overflow: hidden;
 }
 .CollapsibleContent[data-state='open'] {
-  animation: slideDown 400ms cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  animation: slideDownCollapsible 400ms cubic-bezier(0.68, -0.6, 0.32, 1.6);
 }
 .CollapsibleContent[data-state='closed'] {
-  animation: slideUp 400ms cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  animation: slideUpCollapsible 400ms cubic-bezier(0.68, -0.6, 0.32, 1.6);
 }
 
-@keyframes slideDown {
+@keyframes slideDownCollapsible {
   from {
     height: 0;
   }
   to {
     height: var(--radix-collapsible-content-height);
   }
+}
+
+@keyframes slideUpCollapsible {
+  from {
+    height: var(--radix-collapsible-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+
+/* styles.css */
+.HoverCardContent {
+  transform-origin: var(--radix-hover-card-content-transform-origin);
+  animation: scaleIn 0.2s ease-out;
+}
+
+.HoverCardContent[data-side='top'] {
+  animation-name: slideUp;
+}
+.HoverCardContent[data-side='bottom'] {
+  animation-name: slideDown;
 }
 
 @keyframes slideUp {
   from {
-    height: var(--radix-collapsible-content-height);
+    opacity: 0;
+    transform: translateY(10px);
   }
   to {
-    height: 0;
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Custom classes */
+  .hover_links {
+    @apply focus:opacity-70 hover:opacity-70 transition group-hover:opacity-70
+  }

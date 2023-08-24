@@ -4,7 +4,6 @@ import { Broadcast } from "@/types/live";
 import clsx from "clsx";
 import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
-import useRadioToggle from "@/hooks/useRadioToggle";
 import usePlayer from "@/stores/usePlayer";
 import { useEffect, useState } from "react";
 
@@ -13,6 +12,7 @@ interface RadioStationProps {
   isLoading: boolean;
   stationName: string;
   radioDescOpen: boolean;
+  toggleRadio: (stationName: string) => void;
 }
 
 const RadioStation: React.FC<RadioStationProps> = ({
@@ -20,9 +20,9 @@ const RadioStation: React.FC<RadioStationProps> = ({
   isLoading,
   stationName,
   radioDescOpen,
+  toggleRadio,
 }) => {
   const { activePlayer } = usePlayer();
-  const { toggleRadio } = useRadioToggle(stationName);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -33,16 +33,17 @@ const RadioStation: React.FC<RadioStationProps> = ({
     }
   }, [activePlayer]);
 
+
   const detailsInfo = broadcast?.embeds.details;
 
   return (
     <div
       className={twMerge(
-        "flex items-center gap-1 px-1 bg-black hover:bg-neutral-700 cursor-pointer h-[34px] w-full border-white border-b lg:border-r transition-transform duration-300 ",
+        "flex items-center gap-1 px-1 bg-black hover:bg-neutral-700 cursor-pointer h-[34px] w-full border-white border-b first:lg:border-r transition-transform duration-300 ",
         isPlaying && "hover:bg-white bg-white",
         radioDescOpen && "absolute translate-y-[-35px]"
       )}
-      onClick={toggleRadio}
+      onClick={() => toggleRadio(stationName)}
     >
       <div className="lg:hidden bg-red-500 w-1.5 h-1.5 rounded-full pulse-opacity mx-1" />
       <div
@@ -53,9 +54,21 @@ const RadioStation: React.FC<RadioStationProps> = ({
       >
         {stationName}
       </div>
+
+      <div className="bg-red-200">
+
+      </div>
       {isPlaying ? (
         <IoStopSharp size={15} className="text-black" />
       ) : (
+      //     <ClipLoader
+      //       color="#fff"
+      //       loading={loadingSpiner}
+      //       size={13}
+      //       cssOverride={{ margin: "0 3px" }}
+      //       speedMultiplier={0.6}
+      //       aria-label="Loading Spinner"
+      //     />
         <IoPlaySharp
           size={20}
           className={isLoading && "text-neutral-500 animate-pulse"}
@@ -63,7 +76,7 @@ const RadioStation: React.FC<RadioStationProps> = ({
       )}
       <div className="grid lg:grid-cols-6 items-center truncate flex-1	">
         {isLoading ? (
-          <div className="bg-neutral-500  h-3 animate-pulse w-full" />
+          <div className="bg-neutral-500 h-3 animate-pulse lg:col-span-2 w-[60%]" />
         ) : (
           <p
             className={clsx(
@@ -76,7 +89,7 @@ const RadioStation: React.FC<RadioStationProps> = ({
         )}
 
         {isLoading ? (
-          <div className="bg-neutral-500 w-[80px] h-3 animate-pulse mr-4 hidden lg:block align-self-end" />
+          <div className="bg-neutral-500 w-[80px] h-3 animate-pulse mr-4 hidden  lg:col-span-4 lg:block justify-self-end	" />
         ) : (
           <p
             className={clsx(
