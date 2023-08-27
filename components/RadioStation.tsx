@@ -1,14 +1,14 @@
 "use client";
 
-import { Broadcast } from "@/types/live";
+import { Show } from "@/types/live";
 import clsx from "clsx";
 import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
 import usePlayer from "@/stores/usePlayer";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface RadioStationProps {
-  broadcast?: Broadcast;
+  station?: Show;
   isLoading: boolean;
   stationName: string;
   radioDescOpen: boolean;
@@ -16,7 +16,7 @@ interface RadioStationProps {
 }
 
 const RadioStation: React.FC<RadioStationProps> = ({
-  broadcast,
+  station,
   isLoading,
   stationName,
   radioDescOpen,
@@ -24,6 +24,7 @@ const RadioStation: React.FC<RadioStationProps> = ({
 }) => {
   const { activePlayer } = usePlayer();
   const [isPlaying, setIsPlaying] = useState(false);
+
 
   useEffect(() => {
     if (activePlayer === stationName) {
@@ -34,7 +35,7 @@ const RadioStation: React.FC<RadioStationProps> = ({
   }, [activePlayer]);
 
 
-  const detailsInfo = broadcast?.embeds.details;
+  const detailsInfo = station?.now.embeds.details;
 
   return (
     <div

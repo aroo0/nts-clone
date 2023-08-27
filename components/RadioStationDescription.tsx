@@ -40,8 +40,6 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
 
   const detailsInfo = station?.now.embeds.details;
 
-  console.log(station);
-
   const currentAuditionDurationRange = useFormattedTimeRange(
     station?.now.start_timestamp,
     station?.now.end_timestamp

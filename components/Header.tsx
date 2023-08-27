@@ -1,18 +1,15 @@
-import NavBar from "./NavBar"
-import Radio from "./RadioBar"
+import NavBar from "./NavBar";
+import RadioBar from "./RadioBar";
 
-interface HeaderProps {
-  
-}
 
-const Header: React.FC<HeaderProps> = ({}) => {
+
+const Header: React.FC = () => {
   return (
-    <div className="w-full">
-       <NavBar />
-       <Radio />
+    <header className="w-full">
+      <NavBar />
+      <RadioBar />
+    </header>
+  );
+};
 
-    </div>
-   )
-}
-
-export default Header
+export default Header;

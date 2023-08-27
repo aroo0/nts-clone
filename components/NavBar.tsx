@@ -2,8 +2,6 @@
 
 import useRoutes from "@/hooks/useRoutes";
 import SearchBar from "./SearchBar";
-import Link from "next/link";
-import clsx from "clsx";
 import LinkItem from "./LinkItem";
 import useLogo from "@/hooks/useLogo";
 import { BsFillChatRightFill } from "react-icons/bs";
@@ -18,7 +16,7 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
   return (
     <>
       {/* // Desktop nav */}
-      <nav className="hidden fixed w-full lg:flex h-[44px]  bg-black justify-between items-center p-2 z-[10] border-b border-white">
+      <nav className="hidden top-0 fixed w-full lg:flex h-[44px]  bg-black justify-between items-center p-2 z-[10] border-b border-white">
         <div className="flex gap-6 items-center">
           {logo}
           <LinkItem linkData={routes.radio} />
@@ -38,7 +36,7 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
         </div>
       </nav>
       {/* Mobile */}
-      <nav className="fixed lg:hidden w-full flex h-[44px]  bg-black justify-between items-center p-2 z-[10] border-b border-white">
+      <nav className="fixed top-0 lg:hidden w-full flex h-[44px] bg-black justify-between items-center p-2 z-[10] border-b border-white">
           {logo}
           <SearchBar />
           <GiHamburgerMenu size={24} />
