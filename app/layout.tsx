@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Arimo } from "next/font/google";
 import Providers from "@/components/Providers";
 import ToasterProvider from "@/components/ToasterProvider";
+import MixtapeRadio from "@/components/MixtapeRadio";
 
 const arimo = Arimo({ subsets: ["latin"], weight: "400" });
 
@@ -18,14 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={arimo.className}>
       <Providers>
-        <body className={arimo.className}>
+        <body className='overflow-y-scroll' >
           <ToasterProvider />
           <Header />
-          <main className="mt-[113px] pt-[48px] lg:mt-[79px]">
+          <main className="box-border pt-[110px] lg:pt-[78px]  h-full w-full">
             {children}
           </main>
+          <MixtapeRadio />
+          {/* TODO: <EpisodeRadio /> */}
         </body>
       </Providers>
     </html>

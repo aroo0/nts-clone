@@ -47,10 +47,10 @@ body,
   overflow: hidden;
 }
 .CollapsibleContent[data-state='open'] {
-  animation: slideDownCollapsible 400ms cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  animation: slideDownCollapsible 400ms cubic-bezier(0.76, 0, 0.24, 1);
 }
 .CollapsibleContent[data-state='closed'] {
-  animation: slideUpCollapsible 400ms cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  animation: slideUpCollapsible 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes slideDownCollapsible {

@@ -62,7 +62,7 @@ const RadioBar = () => {
   return (
     <>
       <Collapsible.Root
-        className="fixed top-[44px] flex w-full lg:h-[34px]"
+        className="fixed top-[44px] flex w-full lg:h-[34px]  z-[10]"
         open={radioDescOpen}
         onOpenChange={setRadioDescOpen}
         disabled={isLoading}
@@ -93,7 +93,7 @@ const RadioBar = () => {
             radioDescOpen={radioDescOpen}
             toggleRadio={toggleRadio}
           />
-          <Collapsible.CollapsibleContent className="CollapsibleContent w-full bg-black lg:absolute">
+          <Collapsible.CollapsibleContent className="CollapsibleContent w-full lg:absolute bg-black">
             <div className="grid lg:grid-cols-2">
               <RadioStationDescription
                 station={memoizedData?.[0]}
@@ -131,7 +131,7 @@ const RadioBar = () => {
             <Collapsible.Trigger>
               <div
                 className={twMerge(
-                  "flex h-[30px] w-[40px] items-center justify-center border-b border-l border-white",
+                  "flex h-[30px] w-[40px] items-center justify-center border-b border-l border-white bg-black",
                   radioDescOpen && "bg-white text-black",
                 )}
               >
