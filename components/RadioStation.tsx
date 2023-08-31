@@ -6,13 +6,15 @@ import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
 import usePlayer from "@/stores/usePlayer";
 import { useEffect, useMemo, useState } from "react";
+import { toggleRadioParams } from "@/types/general";
+
 
 interface RadioStationProps {
   station?: Show;
   isLoading: boolean;
   stationName: string;
   radioDescOpen: boolean;
-  toggleRadio: (stationName: string) => void;
+  toggleRadio: (params: toggleRadioParams) => void;
 }
 
 const RadioStation: React.FC<RadioStationProps> = ({
@@ -25,64 +27,60 @@ const RadioStation: React.FC<RadioStationProps> = ({
   const { activePlayer } = usePlayer();
   const [isPlaying, setIsPlaying] = useState(false);
 
-
   useEffect(() => {
-    if (activePlayer === stationName) {
+    if (activePlayer?.stationName === stationName) {
       setIsPlaying(true);
     } else {
       setIsPlaying(false);
     }
   }, [activePlayer]);
 
-
   const detailsInfo = station?.now.embeds.details;
 
   return (
     <div
       className={twMerge(
-        "flex items-center gap-1 px-1 bg-black hover:bg-neutral-700 cursor-pointer h-[34px] w-full border-white border-b first:lg:border-r transition-transform duration-300 ",
-        isPlaying && "hover:bg-white bg-white",
-        radioDescOpen && "absolute translate-y-[-35px]"
+        "flex h-[34px] w-full cursor-pointer items-center gap-1 border-b border-white bg-black px-1 transition-transform duration-300 hover:bg-neutral-700 first:lg:border-r ",
+        isPlaying && "bg-white hover:bg-white",
+        radioDescOpen && "absolute translate-y-[-35px]",
       )}
-      onClick={() => toggleRadio(stationName)}
+      onClick={() => toggleRadio({ stationName: stationName, type: "radio" })}
     >
-      <div className="lg:hidden bg-red-500 w-1.5 h-1.5 rounded-full pulse-opacity mx-1" />
+      <div className="pulse-opacity mx-1 h-1.5 w-1.5 rounded-full bg-red-500 lg:hidden" />
       <div
         className={twMerge(
-          `h-[25px] w-[25px] flex justify-center items-center text-black bg-white font-extrabold pt-0.5`,
-          isPlaying && "bg-black text-white"
+          `flex h-[25px] w-[25px] items-center justify-center bg-white pt-0.5 font-extrabold text-black`,
+          isPlaying && "bg-black text-white",
         )}
       >
         {stationName}
       </div>
 
-      <div className="bg-red-200">
-
-      </div>
+      <div className="bg-red-200"></div>
       {isPlaying ? (
         <IoStopSharp size={15} className="text-black" />
       ) : (
-      //     <ClipLoader
-      //       color="#fff"
-      //       loading={loadingSpiner}
-      //       size={13}
-      //       cssOverride={{ margin: "0 3px" }}
-      //       speedMultiplier={0.6}
-      //       aria-label="Loading Spinner"
-      //     />
+        //     <ClipLoader
+        //       color="#fff"
+        //       loading={loadingSpiner}
+        //       size={13}
+        //       cssOverride={{ margin: "0 3px" }}
+        //       speedMultiplier={0.6}
+        //       aria-label="Loading Spinner"
+        //     />
         <IoPlaySharp
           size={20}
-          className={isLoading && "text-neutral-500 animate-pulse"}
+          className={isLoading && "animate-pulse text-neutral-500"}
         />
       )}
-      <div className="grid lg:grid-cols-6 items-center truncate flex-1	">
+      <div className="grid flex-1 items-center truncate lg:grid-cols-6	">
         {isLoading ? (
-          <div className="bg-neutral-500 h-3 animate-pulse lg:col-span-2 w-[60%]" />
+          <div className="h-3 w-[60%] animate-pulse bg-neutral-500 lg:col-span-2" />
         ) : (
           <p
             className={clsx(
-              "uppercase font-extrabold text-sm truncate lg:col-span-5 mr-2",
-              isPlaying && "text-black"
+              "mr-2 truncate text-sm font-extrabold uppercase lg:col-span-5",
+              isPlaying && "text-black",
             )}
           >
             {detailsInfo?.name}
@@ -90,12 +88,12 @@ const RadioStation: React.FC<RadioStationProps> = ({
         )}
 
         {isLoading ? (
-          <div className="bg-neutral-500 w-[80px] h-3 animate-pulse mr-4 hidden  lg:col-span-4 lg:block justify-self-end	" />
+          <div className="mr-4 hidden h-3 w-[80px] animate-pulse justify-self-end  bg-neutral-500 lg:col-span-4 lg:block	" />
         ) : (
           <p
             className={clsx(
-              "uppercase text-xs pr-4 font-extralight hidden lg:block justify-self-end",
-              isPlaying && "text-black"
+              "hidden justify-self-end pr-4 text-xs font-extralight uppercase lg:block",
+              isPlaying && "text-black",
             )}
           >
             {detailsInfo?.location_long}

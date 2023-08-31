@@ -7,10 +7,12 @@ import axios from "axios";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import Link from "next/link";
 import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
+import useRadioToggle from "@/hooks/useRadioToggle";
+import usePlayer from "@/stores/usePlayer";
 
 interface MixTapePageItemProps {
   params: {
@@ -20,6 +22,10 @@ interface MixTapePageItemProps {
 
 const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
   const [open, setOpen] = useState(false);
+  const { toggleRadio } = useRadioToggle();
+  const { activePlayer } = usePlayer();
+
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ["one-mixtape-query"],
@@ -33,6 +39,14 @@ const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
       return toast.error("Something went wrong. Try again later.");
     },
   });
+
+  useEffect(() => {
+    if (activePlayer?.stationName === data?.mixtape_alias) {
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
+    }
+  }, [activePlayer, data]);
 
   if (isLoading) return <div>Loading</div>;
 
@@ -72,7 +86,10 @@ const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
           <Collapsible.Content>
             <ul className="my-6">
               {data.credits.map((entry) => (
-                <li className="font-extrabold uppercase leading-9	">
+                <li
+                  className="font-extrabold uppercase leading-9	"
+                  key={entry.path}
+                >
                   {entry.name}
                 </li>
               ))}
@@ -104,8 +121,26 @@ const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
           />
           {/* Add additional <source> elements for other video formats if needed */}
         </video>
-        <button className="absolute top-0 w-full h-full flex aspect-square items-center justify-center text-white  ">
-          <IoPlaySharp size={60} className="h-[100px] w-[100px]" />
+        <button
+          className="absolute top-0 flex aspect-square h-full w-full items-center justify-center text-white"
+          onClick={() =>
+            toggleRadio({
+              stationName: data.mixtape_alias,
+              type: "mixtape",
+              source: data.audio_stream_endpoint,
+              info: {
+                image: data.media.picture_small,
+                animation: data.media.animation_thumb,
+                subtitle: data.subtitle,
+              },
+            })
+          }
+        >
+          {isPlaying ? (
+            <IoStopSharp size={60} className="h-[100px] w-[100px]" />
+          ) : (
+            <IoPlaySharp size={60} className="h-[100px] w-[100px]" />
+          )}
         </button>
       </div>
     </div>

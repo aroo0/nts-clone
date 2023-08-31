@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Show } from "@/types/live";
 import { twMerge } from "tailwind-merge";
 import { useFormattedTimeRange } from "@/lib/utils";
@@ -8,31 +8,31 @@ import { PiCaretRightBold } from "react-icons/pi";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import usePlayer from "@/stores/usePlayer";
+import { toggleRadioParams } from "@/types/general";
 
 interface RadioStationDescriptionProps {
   station?: Show;
   stationName: string;
   isLoading: boolean;
-  toggleRadio: (stationName: string) => void;
-
+  toggleRadio: (params: toggleRadioParams) => void;
 }
 
 const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
   station,
   isLoading,
   stationName,
-  toggleRadio
+  toggleRadio,
 }) => {
-   const { activePlayer } = usePlayer();
-   const [isPlaying, setIsPlaying] = useState(false);
- 
-   useEffect(() => {
-     if (activePlayer === stationName) {
-       setIsPlaying(true);
-     } else {
-       setIsPlaying(false);
-     }
-   }, [activePlayer]);
+  const { activePlayer } = usePlayer();
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    if (activePlayer?.stationName === stationName) {
+      setIsPlaying(true);
+    } else {
+      setIsPlaying(false);
+    }
+  }, [activePlayer]);
 
   if (!station || isLoading) {
     return;
@@ -42,34 +42,34 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
 
   const currentAuditionDurationRange = useFormattedTimeRange(
     station?.now.start_timestamp,
-    station?.now.end_timestamp
+    station?.now.end_timestamp,
   );
 
   const nextAuditionDurationRange = useFormattedTimeRange(
     station?.next.start_timestamp,
-    station?.next.end_timestamp
+    station?.next.end_timestamp,
   );
 
   return (
-    <div className="relative lg:first:border-r border-b lg:border-b-0 border-white">
+    <div className="relative border-b border-white lg:border-b-0 lg:first:border-r">
       <div className={twMerge(isPlaying && "bg-white")}>
-        <div className="lg:absolute grid grid-cols-2 w-full justify-between z-[2] p-3">
-          <div className="flex gap-2 items-center">
+        <div className="z-[2] grid w-full grid-cols-2 justify-between p-3 lg:absolute">
+          <div className="flex items-center gap-2">
             <div
               className={twMerge(
-                `h-[20px] w-[20px] flex justify-center items-center text-black bg-white font-extrabold text-sm`,
-                isPlaying && "bg-black text-white lg:bg-white lg:text-black"
+                `flex h-[20px] w-[20px] items-center justify-center bg-white text-sm font-extrabold text-black`,
+                isPlaying && "bg-black text-white lg:bg-white lg:text-black",
               )}
             >
               {station?.channel_name}
             </div>
-            <div className=" bg-red-500 w-1.5 h-1.5 rounded-full pulse-opacity mx-1" />
+            <div className=" pulse-opacity mx-1 h-1.5 w-1.5 rounded-full bg-red-500" />
             {detailsInfo?.brand.title && (
               <>
                 <p
                   className={twMerge(
-                    "uppercase text-xs truncate lg:col-span-5 font-bold ",
-                    isPlaying && "text-black lg:text-white"
+                    "truncate text-xs font-bold uppercase lg:col-span-5 ",
+                    isPlaying && "text-black lg:text-white",
                   )}
                 >
                   {detailsInfo?.brand.title}
@@ -80,8 +80,8 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
 
             <p
               className={twMerge(
-                "uppercase text-xs truncate lg:col-span-5 mr-2 ",
-                isPlaying && "text-black lg:text-white"
+                "mr-2 truncate text-xs uppercase lg:col-span-5 ",
+                isPlaying && "text-black lg:text-white",
               )}
             >
               {detailsInfo?.location_long}
@@ -89,54 +89,61 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
           </div>
           <div
             className={twMerge(
-              "pl-4 text-xs lg:text-sm font-extrabold lg:font-normal justify-self-end lg:justify-self-auto",
-              isPlaying && "text-black"
+              "justify-self-end pl-4 text-xs font-extrabold lg:justify-self-auto lg:text-sm lg:font-normal",
+              isPlaying && "text-black",
             )}
           >
             {currentAuditionDurationRange}
           </div>
         </div>
-        <div className="grid grid-cols-2 w-full">
+        <div className="grid w-full grid-cols-2">
           <div
             className={twMerge(
-              "relative pr-10 aspect-[2/1] lg:aspect-[3/2]  group cursor-pointer mx-3  mb-5 lg:m-0 box-border",
-              isPlaying && ""
+              "group relative mx-3 mb-5  box-border aspect-[2/1] cursor-pointer  pr-10 lg:m-0 lg:aspect-[3/2]",
+              isPlaying && "",
             )}
-            onClick={() => toggleRadio(stationName)}
+            onClick={() =>
+              toggleRadio({ stationName: stationName, type: "radio" })
+            }
           >
             <Image
               src={detailsInfo.media.picture_medium_large}
-              className="object-cover brightness-75 group-hover:brightness-50 transition"
+              className="object-cover brightness-75 transition group-hover:brightness-50"
               fill
               sizes="800px 800px"
               alt="cover image"
             />
-            <div className={twMerge("absolute bottom-0 px-1 py-2 lg:bottom-3 lg:left-4 lg:text-white text-black bg-white lg:bg-transparent", isPlaying && "bg-transparent text-white")}>
+            <div
+              className={twMerge(
+                "absolute bottom-0 bg-white px-1 py-2 text-black lg:bottom-3 lg:left-4 lg:bg-transparent lg:text-white",
+                isPlaying && "bg-transparent text-white",
+              )}
+            >
               {isPlaying ? (
-                <IoStopSharp size={60} className="h-7 lg:h-16"/>
+                <IoStopSharp size={60} className="h-7 lg:h-16" />
               ) : (
-                <IoPlaySharp size={60} className="h-7 lg:h-16"/>
+                <IoPlaySharp size={60} className="h-7 lg:h-16" />
               )}
             </div>
           </div>
           <div
             className={twMerge(
-              "flex flex-col gap-3 lg:pt-9 pl-4 pr-8 md:pr-14",
-              isPlaying && "bg-white"
+              "flex flex-col gap-3 pl-4 pr-8 md:pr-14 lg:pt-9",
+              isPlaying && "bg-white",
             )}
           >
             <div
               className={twMerge(
-                "text-xs sm:text-sm lg:text-xl font-extrabold uppercase line-clamp-2 sm:line-clamp-2",
-                isPlaying && "text-black"
+                "line-clamp-2 text-xs font-extrabold uppercase sm:line-clamp-2 sm:text-sm lg:text-xl",
+                isPlaying && "text-black",
               )}
             >
               {detailsInfo.name}
             </div>
             <div
               className={twMerge(
-                "text-xs sm:text-sm line-clamp-1 md:line-clamp-3",
-                isPlaying && "text-black"
+                "line-clamp-1 text-xs sm:text-sm md:line-clamp-3",
+                isPlaying && "text-black",
               )}
             >
               {detailsInfo.description}
@@ -145,16 +152,20 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
         </div>
       </div>
 
-      <div className="hidden lg:flex border-white border-y">
+      <div className="hidden border-y border-white lg:flex">
         <div className="border-r border-white ">
-          <Link href={"/"} className="flex gap-2 items-center p-3 ">
-            <span className=" text-sm font-extrabold uppercase whitespace-nowrap	">Next on </span>
+          <Link href={"/"} className="flex items-center gap-2 p-3 ">
+            <span className=" whitespace-nowrap text-sm font-extrabold uppercase	">
+              Next on{" "}
+            </span>
             <PiCaretRightBold size={13} />
           </Link>
         </div>
-        <div className="flex gap-2 items-center p-3">
-          <div className="pl-2 text-sm whitespace-nowrap	">{nextAuditionDurationRange}</div>
-          <div className="uppercase text-sm font-extrabold line-clamp-1 pr-2">
+        <div className="flex items-center gap-2 p-3">
+          <div className="whitespace-nowrap pl-2 text-sm	">
+            {nextAuditionDurationRange}
+          </div>
+          <div className="line-clamp-1 pr-2 text-sm font-extrabold uppercase">
             {station.next.embeds.details.name}
           </div>
         </div>

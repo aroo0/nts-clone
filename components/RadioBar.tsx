@@ -37,7 +37,6 @@ const RadioBar = () => {
 
   const memoizedData = useMemo(() => data, [data]);
 
-  
 
   const [radioDescOpen, setRadioDescOpen] = useState(false);
   const [volume, setVolume] = useState(0.5);
@@ -52,6 +51,8 @@ const RadioBar = () => {
       setVolume(0);
     }
   };
+
+  console.log(data)
 
   useEffect(() => {
     if (activeHowl) {
