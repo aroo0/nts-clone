@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FiSearch } from "react-icons/fi"
+import { TeenyiconsSearchOutline } from "./Icons";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
@@ -9,7 +9,7 @@ const SearchBar = () => {
   return (
     <form onSubmit={() => {}} className="flex items-center gap-2 ">
       <button className="text-white focus:opacity-70 transition">
-         <FiSearch size={16}  />
+         <TeenyiconsSearchOutline className="w-[14px] h-[14px]" />
       </button>
       <input
         type="text"

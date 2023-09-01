@@ -1,7 +1,6 @@
 import { useMemo } from "react"
 import { usePathname } from "next/navigation"
-import { FaRegUser } from "react-icons/fa"
-import { LuCalendarHeart } from "react-icons/lu"
+import { MaterialSymbolsPersonOutline } from "@/components/Icons";
 
 
 const useRoutes = () => {
@@ -44,7 +43,7 @@ const useRoutes = () => {
               label: "My NTS",
               href: "/my-nts",
               active: pathname === "/my-nts",
-              icon: FaRegUser
+              icon: MaterialSymbolsPersonOutline
             },
             csheduleOne: {
               label: "Schedule Live 1",

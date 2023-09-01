@@ -3,12 +3,11 @@ import { Show } from "@/types/live";
 import { twMerge } from "tailwind-merge";
 import { useFormattedTimeRange } from "@/lib/utils";
 import Image from "next/image";
-import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
-import { PiCaretRightBold } from "react-icons/pi";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import usePlayer from "@/stores/usePlayer";
 import { toggleRadioParams } from "@/types/general";
+import { PhCaretRightBold, PhPlayFill, PhStopFill } from "./Icons";
 
 interface RadioStationDescriptionProps {
   station?: Show;
@@ -120,9 +119,9 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
               )}
             >
               {isPlaying ? (
-                <IoStopSharp size={60} className="h-7 lg:h-16" />
+                <PhStopFill  className=" w-7 h-7 lg:h-16 lg:w-16" />
               ) : (
-                <IoPlaySharp size={60} className="h-7 lg:h-16" />
+                <PhPlayFill  className=" w-7 h-7 lg:h-16 lg:w-16" />
               )}
             </div>
           </div>
@@ -158,7 +157,7 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
             <span className=" whitespace-nowrap text-sm font-extrabold uppercase	">
               Next on{" "}
             </span>
-            <PiCaretRightBold size={13} />
+            <PhCaretRightBold className='w-3 h-3' />
           </Link>
         </div>
         <div className="flex items-center gap-2 p-3">

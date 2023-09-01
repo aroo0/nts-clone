@@ -1,13 +1,14 @@
 import { create } from "zustand";
 // @ts-ignore
 import { Howl } from "howler";
+import { activePlayerInfo } from "@/types/general";
 
 interface activePlayer {
   stationName: string | undefined;
   type: "radio" | "mixtape" | "episode" | undefined;
-  info?: object;
+  info?: activePlayerInfo;
+  pause?: boolean;
 }
-
 
 interface PlayerStore {
   playlist: string[];
@@ -16,12 +17,18 @@ interface PlayerStore {
   setActivePlayer: (player: activePlayer) => void;
   setPlaylist: (ids: string[]) => void;
   setActiveHowl: (howl: Howl) => void;
+  setPause: (pause: boolean) => void;
   reset: () => void;
 }
 
 const usePlayer = create<PlayerStore>((set) => ({
   playlist: [],
-  activePlayer: { stationName: undefined, type: undefined, info: undefined },
+  activePlayer: {
+    stationName: undefined,
+    type: undefined,
+    info: undefined,
+    pause: false,
+  },
   activeHowl: undefined,
   setActivePlayer: (player) =>
     set({
@@ -29,14 +36,27 @@ const usePlayer = create<PlayerStore>((set) => ({
         stationName: player.stationName,
         type: player.type,
         info: player.info,
+        pause: false,
       },
     }),
+  setPause: (pause) =>
+    set((state) => ({
+      activePlayer: {
+        ...state.activePlayer,
+        pause: pause,
+      },
+    })),
   setPlaylist: (playlist) => set({ playlist }),
   setActiveHowl: (howl) => set({ activeHowl: howl }),
   reset: () =>
     set({
       playlist: [],
-      activePlayer: { stationName: undefined, type: undefined, info: undefined },
+      activePlayer: {
+        stationName: undefined,
+        type: undefined,
+        info: undefined,
+        pause: false,
+      },
       activeHowl: undefined,
     }),
 }));

@@ -8,10 +8,15 @@ interface Stations {
   [id: string]: string;
 }
 
-
 function useRadioToggle() {
-  const { activePlayer, activeHowl, setActivePlayer, reset, setActiveHowl } =
-    usePlayer();
+  const {
+    activePlayer,
+    activeHowl,
+    setActivePlayer,
+    reset,
+    setActiveHowl,
+    setPause,
+  } = usePlayer();
 
   const stations: Stations = {
     "1": STATION1_STREAM_URL,
@@ -30,16 +35,34 @@ function useRadioToggle() {
 
   const stopRadio = () => {
     activeHowl.unload();
+    reset();
   };
 
-  const toggleRadio = ({ stationName, type, source, info }: toggleRadioParams) => {
+  const togglePause = () => {
+    if (!activePlayer.pause) {
+      activeHowl.pause();
+      setPause(true);
+    } else {
+      activeHowl.play();
+      setPause(false);
+    }
+  };
+
+  const toggleRadio = ({
+    stationName,
+    type,
+    source,
+    info,
+  }: toggleRadioParams) => {
     if (activePlayer.stationName === stationName) {
-      stopRadio();
-      reset();
+      if (stationName in stations) {
+        stopRadio();
+      }
+
+      togglePause()
     } else {
       if (activePlayer.stationName) {
         stopRadio();
-        reset();
       }
       setActivePlayer({ stationName, info, type });
 
@@ -53,6 +76,8 @@ function useRadioToggle() {
 
   return {
     toggleRadio,
+    stopRadio,
+    togglePause,
   };
 }
 

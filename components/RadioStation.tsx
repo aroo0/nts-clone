@@ -2,11 +2,11 @@
 
 import { Show } from "@/types/live";
 import clsx from "clsx";
-import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
 import { twMerge } from "tailwind-merge";
 import usePlayer from "@/stores/usePlayer";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { toggleRadioParams } from "@/types/general";
+import { PhPlayFill, PhStopFill } from "./Icons";
 
 
 interface RadioStationProps {
@@ -56,24 +56,14 @@ const RadioStation: React.FC<RadioStationProps> = ({
         {stationName}
       </div>
 
-      <div className="bg-red-200"></div>
       {isPlaying ? (
-        <IoStopSharp size={15} className="text-black" />
+        <PhStopFill className="text-black" />
       ) : (
-        //     <ClipLoader
-        //       color="#fff"
-        //       loading={loadingSpiner}
-        //       size={13}
-        //       cssOverride={{ margin: "0 3px" }}
-        //       speedMultiplier={0.6}
-        //       aria-label="Loading Spinner"
-        //     />
-        <IoPlaySharp
-          size={20}
-          className={isLoading && "animate-pulse text-neutral-500"}
+        <PhPlayFill
+          className={twMerge(isLoading && "animate-pulse text-neutral-500")}
         />
       )}
-      <div className="grid flex-1 items-center truncate lg:grid-cols-6	">
+      <div className="grid flex-1 items-center truncate lg:grid-cols-6 pl-1	">
         {isLoading ? (
           <div className="h-3 w-[60%] animate-pulse bg-neutral-500 lg:col-span-2" />
         ) : (

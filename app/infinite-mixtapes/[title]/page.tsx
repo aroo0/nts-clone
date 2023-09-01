@@ -7,12 +7,16 @@ import axios from "axios";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import { useEffect, useState } from "react";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { IoPlaySharp, IoStopSharp } from "react-icons/io5";
 import useRadioToggle from "@/hooks/useRadioToggle";
 import usePlayer from "@/stores/usePlayer";
+import {
+  PhMinusBold,
+  PhPlayFill,
+  PhPlusBold,
+  PhStopFill,
+} from "@/components/Icons";
 
 interface MixTapePageItemProps {
   params: {
@@ -22,6 +26,7 @@ interface MixTapePageItemProps {
 
 const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
   const [open, setOpen] = useState(false);
+  const vidRef = useRef(null);
   const { toggleRadio } = useRadioToggle();
   const { activePlayer } = usePlayer();
 
@@ -41,18 +46,33 @@ const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
   });
 
   useEffect(() => {
-    if (activePlayer?.stationName === data?.mixtape_alias) {
+    if (
+      activePlayer?.stationName === data?.mixtape_alias &&
+      activePlayer.pause === false
+    ) {
       setIsPlaying(true);
     } else {
       setIsPlaying(false);
     }
   }, [activePlayer, data]);
 
+  useEffect(() => {
+    if (!vidRef || !vidRef.current) {
+      return;
+    }
+
+    if (activePlayer?.stationName === data?.mixtape_alias) {
+      if (activePlayer.pause) {
+        (vidRef.current! as HTMLVideoElement).pause();
+      } else {
+        (vidRef.current! as HTMLVideoElement).play();
+      }
+    }
+  }, [activePlayer, vidRef]);
+
   if (isLoading) return <div>Loading</div>;
 
   if (!data) return <div>Sth went wrong. Try again later.</div>;
-
-  console.log(data);
 
   return (
     <div className="relative h-full w-full lg:bg-white">
@@ -81,7 +101,11 @@ const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
         >
           <Collapsible.Trigger className="flex w-full items-center justify-between">
             <div className="font-extrabold uppercase">Credits</div>
-            {open ? <AiOutlineMinus size={18} /> : <AiOutlinePlus size={18} />}
+            {open ? (
+              <PhMinusBold className="h-[16px] w-[16px] fill-black" />
+            ) : (
+              <PhPlusBold className="h-[16px] w-[16px] fill-black" />
+            )}
           </Collapsible.Trigger>
           <Collapsible.Content>
             <ul className="my-6">
@@ -105,25 +129,32 @@ const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
       </div>
 
       <div className="absolute top-0 h-full overflow-hidden bg-black before:absolute before:bottom-0	before:h-1/4 before:w-full before:bg-gradient-to-t before:from-black before:content-[''] lg:fixed lg:right-[374px] lg:before:hidden">
-        <video
-          autoPlay
-          loop
-          controls={false}
-          muted
-          width="1600"
-          height="auto"
-          className="h-full w-full object-cover"
-          poster={data.media.animation_thumb}
-        >
-          <source
+        {activePlayer?.stationName === data?.mixtape_alias ? (
+          <video
+            autoPlay
+            loop
+            controls={false}
+            muted
+            width="1600"
+            height="auto"
+            className="h-full w-full object-cover"
+            poster={data.media.animation_thumb}
             src={data?.media.animation_large_landscape}
-            type="video/mp4"
+            ref={vidRef}
+          ></video>
+        ) : (
+          <Image
+            src={data.media.picture_large}
+            className="h-full w-full object-cover"
+            width="900"
+            height="300"
+            alt="Poster Image"
           />
-          {/* Add additional <source> elements for other video formats if needed */}
-        </video>
+        )}
+
         <button
           className="absolute top-0 flex aspect-square h-full w-full items-center justify-center text-white"
-          onClick={() =>
+          onClick={() => {
             toggleRadio({
               stationName: data.mixtape_alias,
               type: "mixtape",
@@ -133,13 +164,13 @@ const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
                 animation: data.media.animation_thumb,
                 subtitle: data.subtitle,
               },
-            })
-          }
+            });
+          }}
         >
           {isPlaying ? (
-            <IoStopSharp size={60} className="h-[100px] w-[100px]" />
+            <PhStopFill className="h-[100px] w-[100px] fill-white" />
           ) : (
-            <IoPlaySharp size={60} className="h-[100px] w-[100px]" />
+            <PhPlayFill className="h-[100px] w-[100px] fill-white" />
           )}
         </button>
       </div>
