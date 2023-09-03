@@ -1,13 +1,12 @@
 "use client";
 
-import { Show } from "@/types/live";
+import { Show } from "@/types/shows";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import usePlayer from "@/stores/usePlayer";
 import { useEffect, useState } from "react";
 import { toggleRadioParams } from "@/types/general";
 import { PhPlayFill, PhStopFill } from "./Icons";
-
 
 interface RadioStationProps {
   station?: Show;
@@ -63,7 +62,7 @@ const RadioStation: React.FC<RadioStationProps> = ({
           className={twMerge(isLoading && "animate-pulse text-neutral-500")}
         />
       )}
-      <div className="grid flex-1 items-center truncate lg:grid-cols-6 pl-1	">
+      <div className="grid flex-1 items-center truncate pl-1 lg:grid-cols-6	">
         {isLoading ? (
           <div className="h-3 w-[60%] animate-pulse bg-neutral-500 lg:col-span-2" />
         ) : (

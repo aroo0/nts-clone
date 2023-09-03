@@ -6,6 +6,8 @@ export const API_PATH = {
   SHOWS: "shows",
   EPISODES: "episodes",
   MIXTAPES: "mixtapes",
+  LATEST: "collections/recently-added",
+  NTS_PICKS: "collections/nts-picks"
 };
 
 export const WEB_URL = "https://www.nts.live";

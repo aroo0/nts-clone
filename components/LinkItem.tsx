@@ -1,12 +1,11 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { IconType } from "react-icons";
 
 interface LinkDataProps {
   label: string;
   href: string;
   active: boolean;
-  icon?: IconType;
+  icon?: any;
   className?: string;
 }
 

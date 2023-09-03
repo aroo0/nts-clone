@@ -59,7 +59,7 @@ function useRadioToggle() {
         stopRadio();
       }
 
-      togglePause()
+      togglePause();
     } else {
       if (activePlayer.stationName) {
         stopRadio();

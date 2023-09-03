@@ -2,7 +2,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Show } from "@/types/live";
 import { twMerge } from "tailwind-merge";
 import usePlayer from "@/stores/usePlayer";
 import RadioStation from "./RadioStation";
@@ -15,7 +14,15 @@ import * as HoverCard from "@radix-ui/react-hover-card";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import Slider from "./Slider";
 import { toast } from "react-hot-toast";
-import { IonVolumeHighSharp, IonVolumeMute, MdiCalendarHeart, MdiPlaylistMusic, PhCaretDownBold, PhCaretUpBold } from "./Icons";
+import {
+  IonVolumeHighSharp,
+  IonVolumeMute,
+  MdiCalendarHeart,
+  MdiPlaylistMusic,
+  PhCaretDownBold,
+  PhCaretUpBold,
+} from "./Icons";
+import { ChannelStation } from "@/types/shows";
 
 const RadioBar = () => {
   const routes = useRoutes();
@@ -24,14 +31,12 @@ const RadioBar = () => {
     queryKey: ["station-query"],
     queryFn: async () => {
       const { data } = await axios.get(`${API_URL}/${API_PATH.LIVE}`);
-      return data.results as Show[];
+      return data.results as ChannelStation[];
     },
     onError: (err: any) => {
       return toast.error("Something went wrong. Try again later.");
     },
   });
-
-
 
   const [radioDescOpen, setRadioDescOpen] = useState(false);
   const [volume, setVolume] = useState(0.5);
@@ -47,8 +52,6 @@ const RadioBar = () => {
     }
   };
 
-  console.log(data)
-
   useEffect(() => {
     if (activeHowl) {
       activeHowl.volume(volume);
@@ -58,7 +61,7 @@ const RadioBar = () => {
   return (
     <>
       <Collapsible.Root
-        className="fixed top-[44px] flex w-full lg:h-[34px] z-[90]"
+        className="fixed top-[44px] z-[90] flex w-full lg:h-[34px]"
         open={radioDescOpen}
         onOpenChange={setRadioDescOpen}
         disabled={isLoading}
@@ -89,7 +92,7 @@ const RadioBar = () => {
             radioDescOpen={radioDescOpen}
             toggleRadio={toggleRadio}
           />
-          <Collapsible.CollapsibleContent className="CollapsibleContent w-full lg:absolute bg-black">
+          <Collapsible.CollapsibleContent className="CollapsibleContent w-full bg-black lg:absolute">
             <div className="grid lg:grid-cols-2">
               <RadioStationDescription
                 station={data?.[0]}
@@ -113,7 +116,7 @@ const RadioBar = () => {
             )}
           >
             <LinkItem linkData={routes.scheduleMy}>
-              <MdiCalendarHeart className="pr-1 w-6 h-6" />
+              <MdiCalendarHeart className="h-6 w-6 pr-1" />
             </LinkItem>
           </div>
 
@@ -121,7 +124,7 @@ const RadioBar = () => {
           <div className="z-[20] flex justify-self-end lg:hidden">
             <div className="outer-polygon-path h-[30px] w-[55px] border-b border-white bg-white">
               <div className="inner-polygon-path flex h-full w-full items-center justify-center pl-3">
-                <MdiPlaylistMusic className='w-4 h-4' />
+                <MdiPlaylistMusic className="h-4 w-4" />
               </div>
             </div>
             <Collapsible.Trigger>
@@ -131,11 +134,11 @@ const RadioBar = () => {
                   radioDescOpen && "bg-white text-black",
                 )}
               >
-              {!radioDescOpen ? (
-                <PhCaretDownBold className="w-4 h-4" />
-              ) : (
-                <PhCaretUpBold className="w-4 h-4" />
-              )}
+                {!radioDescOpen ? (
+                  <PhCaretDownBold className="h-4 w-4" />
+                ) : (
+                  <PhCaretUpBold className="h-4 w-4" />
+                )}
               </div>
             </Collapsible.Trigger>
           </div>
@@ -151,17 +154,17 @@ const RadioBar = () => {
               )}
             >
               {!radioDescOpen ? (
-                <PhCaretDownBold className="w-4 h-4" />
+                <PhCaretDownBold className="h-4 w-4" />
               ) : (
-                <PhCaretUpBold className="w-4 h-4" />
+                <PhCaretUpBold className="h-4 w-4" />
               )}
             </div>
           </Collapsible.Trigger>
           <div className="flex aspect-square h-[34px] cursor-pointer items-center justify-center border-b border-r border-white">
-            <MdiCalendarHeart className='w-5 h-5' />
+            <MdiCalendarHeart className="h-5 w-5" />
           </div>
           <div className="flex aspect-square h-[34px] cursor-pointer items-center justify-center border-b border-r border-white">
-            <MdiPlaylistMusic className='w-5 h-5' />
+            <MdiPlaylistMusic className="h-5 w-5" />
           </div>
 
           <HoverCard.Root openDelay={100} closeDelay={100}>
@@ -171,9 +174,9 @@ const RadioBar = () => {
                 onClick={() => toggleMute()}
               >
                 {volume === 0 ? (
-                  <IonVolumeMute  className="w-4 h-4  hover_links opacity-60" />
+                  <IonVolumeMute className="hover_links h-4  w-4 opacity-60" />
                 ) : (
-                  <IonVolumeHighSharp  className="w-4 h-4 hover_links" />
+                  <IonVolumeHighSharp className="hover_links h-4 w-4" />
                 )}
               </div>
             </HoverCard.Trigger>

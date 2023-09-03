@@ -1,5 +1,5 @@
 "use client";
-import { Show } from "@/types/live";
+import { Show } from "@/types/shows";
 import { twMerge } from "tailwind-merge";
 import { useFormattedTimeRange } from "@/lib/utils";
 import Image from "next/image";
@@ -119,9 +119,9 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
               )}
             >
               {isPlaying ? (
-                <PhStopFill  className=" w-7 h-7 lg:h-16 lg:w-16" />
+                <PhStopFill className=" h-7 w-7 lg:h-16 lg:w-16" />
               ) : (
-                <PhPlayFill  className=" w-7 h-7 lg:h-16 lg:w-16" />
+                <PhPlayFill className=" h-7 w-7 lg:h-16 lg:w-16" />
               )}
             </div>
           </div>
@@ -157,7 +157,7 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
             <span className=" whitespace-nowrap text-sm font-extrabold uppercase	">
               Next on{" "}
             </span>
-            <PhCaretRightBold className='w-3 h-3' />
+            <PhCaretRightBold className="h-3 w-3" />
           </Link>
         </div>
         <div className="flex items-center gap-2 p-3">
