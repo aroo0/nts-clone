@@ -5,6 +5,7 @@ import { Arimo } from "next/font/google";
 import Providers from "@/components/Providers";
 import ToasterProvider from "@/components/ToasterProvider";
 import MixtapeRadio from "@/components/MixtapeRadio";
+import EpisodeRadio from "@/components/EpisodeRadio";
 
 const arimo = Arimo({ subsets: ["latin"], weight: "400" });
 
@@ -21,14 +22,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={arimo.className}>
       <Providers>
-        <body className='overflow-y-scroll' >
+        <body className="overflow-y-scroll">
           <ToasterProvider />
           <Header />
-          <main className="box-border pt-[110px] lg:pt-[78px]  h-full w-full">
+          <main className="box-border h-full w-full  pt-[110px] lg:pt-[78px]">
             {children}
           </main>
           <MixtapeRadio />
-          {/* TODO: <EpisodeRadio /> */}
+          <EpisodeRadio />
         </body>
       </Providers>
     </html>

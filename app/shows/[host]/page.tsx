@@ -1,6 +1,8 @@
+import CopyLinkAction from "@/components/CopyLinkAction";
 import EpisodesFeed from "@/components/EpisodesFeed";
+import FavoriteShowAction from "@/components/FavoriteShowAction";
 import { PhPlayFill } from "@/components/Icons";
-import UserActions from "@/components/UserActions";
+import UserActions from "@/components/SaveEpisodeAction";
 import { API_PATH, API_URL } from "@/const/api";
 import { Show } from "@/types/shows";
 import axios from "axios";
@@ -55,8 +57,9 @@ const Episode: React.FC<EpisodeProps> = async ({ params: { host } }) => {
             </div>
             <p className="text-sm">{data.description}</p>
 
-            <div className="mt-4 flex items-center justify-between">
-              <UserActions />
+            <div className=" mt-4 hidden items-center gap-4 text-black md:flex">
+              <FavoriteShowAction classToSent="h-7 w-7" />
+              <CopyLinkAction classToSent="h-6 w-6" />
             </div>
           </div>
         </div>

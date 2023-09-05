@@ -1,25 +1,23 @@
-"use client";
-
 import MixtapeItem from "@/components/MixtapeItem";
 import { API_PATH, API_URL } from "@/const/api";
 import { MixtapeList } from "@/types/mixtapes";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { toast } from "react-hot-toast";
+import { notFound } from "next/navigation";
 
-const Mixtapes = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["mixtape-query"],
-    queryFn: async () => {
+const Mixtapes = async () => {
+  
+  const getMixtapes = async () => {
+    try {
       const { data } = await axios.get(`${API_URL}/${API_PATH.MIXTAPES}`);
       return data as MixtapeList;
-    },
-    onError: (err: any) => {
-      return toast.error("Something went wrong. Try again later.");
-    },
-  });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  if (isLoading) return <div>Loading</div>;
+  const data = await getMixtapes();
+
+  if (!data) return notFound();
 
   return (
     <div className="mx-4 pt-[49px] pb-[78px]">

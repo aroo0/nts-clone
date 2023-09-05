@@ -6,14 +6,15 @@ export interface Metadata {
   };
 }
 
-export interface Mood {
+export interface Subgenre {
   id: string;
-  value: string;
+  name: string;
 }
 
 export interface Genre {
   id: string;
-  value: string;
+  name: string;
+  subgenres?: Subgenre[];
 }
 
 export interface Media {
@@ -93,8 +94,8 @@ export interface Broadcast {
   broadcast_title: string;
   start_timestamp: string;
   end_timestamp: string;
-  embeds: { 
-    details: Episode 
+  embeds: {
+    details: Episode;
   };
   links: Link[];
 }
@@ -120,7 +121,6 @@ export interface ChannelStation {
   next16: Broadcast;
   next17: Broadcast;
 }
-
 
 export interface Show {
   status: string;
@@ -168,4 +168,24 @@ export interface Show {
     href: string;
     type: string;
   }[];
+}
+
+interface Image {
+  large: string;
+  medium_large: string;
+  medium: string;
+  small: string;
+  thumb: string;
+}
+
+export interface Mood {
+  id: string;
+  name: string;
+  image?: Image;
+  description?: string;
+}
+
+
+export interface GenreList {
+  results: Genre[];
 }

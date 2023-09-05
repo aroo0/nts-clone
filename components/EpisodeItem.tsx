@@ -1,14 +1,14 @@
-"use client";
-
 import { useDate } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { PhPlayFill } from "./Icons";
-import { Episode } from "@/types/shows";
+import { Episode, Genre } from "@/types/shows";
+import PlayPauseToggle from "./PlayPauseEpisodeItem";
 
 interface EpisodeItemProps {
   data: Episode;
 }
+
+
 
 const EpisodeItem: React.FC<EpisodeItemProps> = ({ data }) => {
   return (
@@ -21,11 +21,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ data }) => {
           width={400}
           className="h-full w-full max-w-full object-cover"
         />
-        <div className="absolute top-0 flex h-full w-full items-end transition lg:items-center lg:justify-center lg:bg-black/50  lg:opacity-0 lg:group-hover:opacity-100 ">
-          <div className="bg-white px-5 py-2 lg:bg-transparent">
-            <PhPlayFill className="h-9 w-9 text-black lg:h-12 lg:w-12 lg:text-white" />
-          </div>
-        </div>
+        <PlayPauseToggle data={data} />
       </div>
       <Link
         href={`/shows/${data.show_alias}/episodes/${data.episode_alias}`}
@@ -35,7 +31,9 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ data }) => {
           <span className="text-xs">{useDate(data.updated)}</span>
           <span className="text-xs uppercase">{data.location_long}</span>
         </div>
-        <h2 className="mt-1 text-lg font-extrabold uppercase">{data.name}</h2>
+        <h2 className="mt-1 font-extrabold	 uppercase leading-tight">
+          {data.name}
+        </h2>
       </Link>
       <div className="mt-auto flex flex-wrap gap-2 p-2">
         {data.genres.map((tag, index) => (

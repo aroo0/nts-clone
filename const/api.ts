@@ -3,11 +3,13 @@ export const API_URL = "https://www.nts.live/api/v2";
 export const API_PATH = {
   LIVE: "live",
   SEARCH: "search",
-  SHOWS: "shows",
   EPISODES: "episodes",
   MIXTAPES: "mixtapes",
   LATEST: "collections/recently-added",
-  NTS_PICKS: "collections/nts-picks"
+  NTS_PICKS: "collections/nts-picks",
+  MOODES: "moods",
+  GENRES: 'genres'
+
 };
 
 export const WEB_URL = "https://www.nts.live";

@@ -45,7 +45,7 @@ const useRoutes = () => {
               active: pathname === "/my-nts",
               icon: MaterialSymbolsPersonOutline
             },
-            csheduleOne: {
+            scheduleOne: {
               label: "Schedule Live 1",
               href: "/schedule",
               active: pathname === "/schedule",
