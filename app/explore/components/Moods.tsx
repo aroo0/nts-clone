@@ -1,7 +1,7 @@
 import { PhCaretRightBold } from "@/components/Icons";
 import { Mood } from "@/types/shows";
 import { twMerge } from "tailwind-merge";
-import { ExtendedMood, searchQueryInterface } from "../types";
+import { ExtendedMood, drawerTypes, searchQueryInterface } from "../types";
 
 
 
@@ -9,12 +9,16 @@ interface MoodsProps {
   moodList: ExtendedMood[] ;
   searchQuery: searchQueryInterface;
   setSearchQuery: (value: searchQueryInterface) => void;
+  redirectUrl: () => void;
+  setSelectedDrawer: (value: drawerTypes) => void
+
 }
 
 const Moods: React.FC<MoodsProps> = ({
   moodList,
   searchQuery,
   setSearchQuery,
+  setSelectedDrawer
 }) => {
   return (
     <div className="grid w-full grid-cols-2  gap-2 lg:grid-cols-4 2xl:grid-cols-6">
@@ -26,12 +30,13 @@ const Moods: React.FC<MoodsProps> = ({
             mood === searchQuery.mood && "after:opacity-100",
           )}
           onClick={() => {
-            const moodToAdd = mood
             mood['type'] = "Mood"
             setSearchQuery({
               ...searchQuery,
               mood: searchQuery.mood === mood ? null : mood,
             })
+            setSelectedDrawer("Results")
+            
           }
           }
         >

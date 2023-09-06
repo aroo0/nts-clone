@@ -5,18 +5,23 @@ import { Genre } from "@/types/shows";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { searchQueryInterface } from "./ExploreSection";
+import { drawerTypes, searchQueryInterface } from "../types";
+
 
 interface GenreItemProps {
   genre: Genre;
   searchQuery: searchQueryInterface;
   setSearchQuery: (value: searchQueryInterface) => void;
+  setSelectedDrawer: (value: drawerTypes) => void
+
+  
 }
 
 const GenreItem: React.FC<GenreItemProps> = ({
   genre,
   searchQuery,
   setSearchQuery,
+  setSelectedDrawer
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,6 +38,7 @@ const GenreItem: React.FC<GenreItemProps> = ({
       ...searchQuery,
       genres: updatedGenres,
     });
+    setSelectedDrawer('Results')
 
   };
 
