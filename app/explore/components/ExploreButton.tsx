@@ -1,17 +1,20 @@
 import { PhCaretDownBold } from "@/components/Icons";
-import { drawerTypes } from "./ExploreSection";
 import { twMerge } from "tailwind-merge";
+import { drawerTypes } from "../types";
 
 interface ButtonProps {
   name: drawerTypes;
   selectedDrawer: string;
   setSelectedDrawer: (value: drawerTypes) => void;
+
 }
+
 
 const ExploreButton: React.FC<ButtonProps> = ({
   name,
   selectedDrawer,
-  setSelectedDrawer,
+  setSelectedDrawer
+
 }) => {
   const handleClick = () => {
     if (selectedDrawer === name) return setSelectedDrawer("Results");

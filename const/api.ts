@@ -7,6 +7,7 @@ export const API_PATH = {
   MIXTAPES: "mixtapes",
   LATEST: "collections/recently-added",
   NTS_PICKS: "collections/nts-picks",
+  SHOWS: "shows",
   MOODES: "moods",
   GENRES: 'genres'
 
