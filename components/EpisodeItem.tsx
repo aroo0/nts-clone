@@ -37,7 +37,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ data }) => {
       </Link>
       <div className="mt-auto flex flex-wrap gap-2 p-2">
         {data.genres.map((tag, index) => (
-          <Link key={index} href={`/explore/genre/${tag.id}`}>
+          <Link key={index} href={`/explore?genre=${tag.id}`}>
             <button className="border border-neutral-700 px-2 py-1.5 text-xs font-extrabold uppercase text-neutral-300 transition hover:bg-neutral-700">
               {tag.value}
             </button>

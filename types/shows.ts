@@ -17,6 +17,11 @@ export interface Genre {
   subgenres?: Subgenre[];
 }
 
+export interface EpisodeGenre {
+  id: string;
+  value: string;
+}
+
 export interface Media {
   background_large: string;
   background_medium_large: string;
@@ -57,7 +62,7 @@ export interface Episode {
   description_html: string;
   external_links: string[];
   moods: Mood[];
-  genres: Genre[];
+  genres: EpisodeGenre[];
   location_short: string;
   location_long: string;
   intensity: number | null;
@@ -184,7 +189,6 @@ export interface Mood {
   image?: Image;
   description?: string;
 }
-
 
 export interface GenreList {
   results: Genre[];
