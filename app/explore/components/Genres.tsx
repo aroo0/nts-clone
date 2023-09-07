@@ -1,4 +1,3 @@
-import { Genre } from "@/types/shows";
 import GenreItem from "./GenreItem";
 import { ExtendedGenre, drawerTypes, searchQueryInterface } from "../types";
 
@@ -18,7 +17,7 @@ const Genres: React.FC<GenresProps> = ({
   setSelectedDrawer
 }) => {
   return (
-    <ul className="flex flex-col 	items-start">
+    <ul className="flex flex-col items-start">
       {genreList.map((genre) => (
         <li key={genre.id}>
           <GenreItem

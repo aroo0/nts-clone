@@ -175,13 +175,6 @@ export interface Show {
   }[];
 }
 
-interface Image {
-  large: string;
-  medium_large: string;
-  medium: string;
-  small: string;
-  thumb: string;
-}
 
 export interface Mood {
   id: string;
@@ -192,4 +185,43 @@ export interface Mood {
 
 export interface GenreList {
   results: Genre[];
+}
+
+
+// Results
+
+export interface Article {
+  path: string;
+}
+
+
+export interface Image {
+  large: string;
+  medium_large: string;
+  medium: string;
+  small: string;
+  thumb: string;
+}
+
+
+export interface ExploreEpisode {
+  title: string;
+  article_type: string;
+  artists: string[];
+  article: Article;
+  audio_sources: AudioSource[];
+  description: any
+  image: Image;
+  related_episode: any
+  local_date: string;
+  location: string;
+  genres: Genre[];
+  track_uid: null | string;
+  brand: any
+}
+
+export interface ExploreColection {
+  metadata: Metadata;
+  results: ExploreEpisode[];
+  links: Link[];
 }

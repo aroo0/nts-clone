@@ -27,6 +27,7 @@ const SelectedFilters: React.FC<SelectedFiltersProps> = ({
         ...searchQuery,
         genres: updatedGenres,
       });
+      
     }
   };
 

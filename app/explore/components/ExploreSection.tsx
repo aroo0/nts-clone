@@ -1,5 +1,5 @@
 "use client";
-import { Genre, Mood } from "@/types/shows";
+import { Episode, ExploreEpisode, Genre, Mood } from "@/types/shows";
 import Moods from "./Moods";
 import SelectedFilters from "./SelectedFilters";
 import Results from "./Results";
@@ -25,12 +25,14 @@ const ExploreSection: React.FC<ExploreSectionProps> = ({
     genres: {},
   });
   const router = useRouter();
+  const [queryString, setQueryString] = useState<string>("");
 
   const redirectUrl = () => {
     const query = {
-      mood: [searchQuery.mood?.id],
+      moods: [searchQuery.mood?.id],
       genres: Object.values(searchQuery.genres).map((genre) => genre.id),
     };
+    setQueryString(qs.stringify(query, { arrayFormat: "bracket" }));
 
     const url = qs.stringifyUrl(
       { url: "/explore", query: query },
@@ -40,10 +42,8 @@ const ExploreSection: React.FC<ExploreSectionProps> = ({
   };
 
   useEffect(() => {
-    redirectUrl()
-  }, [searchQuery])
-
-
+    redirectUrl();
+  }, [searchQuery, router, queryString]);
 
   return (
     <div className="mt-6 grid gap-6">
@@ -81,7 +81,7 @@ const ExploreSection: React.FC<ExploreSectionProps> = ({
           setSelectedDrawer={setSelectedDrawer}
         />
       )}
-      {selectedDrawer === "Results" && <Results />}
+      {selectedDrawer === "Results" && <Results queryString={queryString} />}
     </div>
   );
 };

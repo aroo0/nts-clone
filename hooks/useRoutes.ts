@@ -33,12 +33,6 @@ const useRoutes = () => {
               href: "/infinite-mixtapes",
               active: pathname === "/infinite-mixtapes"
             },
-            supporters: {
-              label: "NTS Supporters",
-              href: "/supporters",
-              active: pathname === "/supporters",
-              className: "py-1 px-3 bg-white text-black font-extrabold tracking-wide"
-            },
             myNts: {
               label: "My NTS",
               href: "/my-nts",

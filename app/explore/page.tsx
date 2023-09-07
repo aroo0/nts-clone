@@ -1,12 +1,12 @@
 import { API_PATH, API_URL } from "@/const/api";
-import { GenreList, Mood } from "@/types/shows";
+import {GenreList, Mood } from "@/types/shows";
 import axios from "axios";
-import { notFound } from "next/navigation";
-import Moods from "./components/Moods";
-import Genres from "./components/Genres";
-import SelectedFilters from "./components/SelectedFilters";
-import Results from "./components/Results";
+
 import ExploreSection from "./components/ExploreSection";
+
+
+export const revalidate = 0
+
 
 const Explore = async () => {
   const getMoods = async () => {
@@ -30,13 +30,14 @@ const Explore = async () => {
     }
   };
 
+
   return (
     <div className="mx-6 pb-20 pt-12 ">
       <h1 className="text-2xl font-extrabold uppercase">Explore</h1>
       {/* @ts-ignore */}
-      <ExploreSection genreList={await getGenres()} moodList={await getMoods()}/>
+      <ExploreSection genreList={await getGenres()} moodList={await getMoods()}
 
-  
+      />
     </div>
   );
 };

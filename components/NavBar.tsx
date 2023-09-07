@@ -25,7 +25,6 @@ const NavBar: React.FC<NavBarProps> = ({}) => {
           <LinkItem linkData={routes.latest} />
           <LinkItem linkData={routes.explore} />
           <LinkItem linkData={routes.mixtapes} />
-          <LinkItem linkData={routes.supporters} />
         </div>
         <div className="flex items-center gap-4">
           <SearchBar />

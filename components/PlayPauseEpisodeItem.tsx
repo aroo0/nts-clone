@@ -18,6 +18,7 @@ const PlayPauseToggle: React.FC<PlayPauseToggleProps> = ({
 
   const [isPlaying, setIsPlaying] = useState(false);
 
+
   useEffect(() => {
     if (
       activePlayer?.stationName === data?.episode_alias &&
