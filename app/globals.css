@@ -10,6 +10,13 @@ body,
   color-scheme: dark;
 }
 
+
+em {
+  font-weight: 600;
+  font-style: normal;
+  color: white
+}
+
 @keyframes pulse {
   0% {
     opacity: 1;
@@ -72,7 +79,6 @@ body,
 }
 
 
-/* styles.css */
 .HoverCardContent {
   transform-origin: var(--radix-hover-card-content-transform-origin);
   animation: scaleIn 0.2s ease-out;
@@ -109,6 +115,8 @@ body,
 
 
 /* Custom classes */
+
   .hover_links {
     @apply focus:opacity-70 hover:opacity-70 transition group-hover:opacity-70
   }
+

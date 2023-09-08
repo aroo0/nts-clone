@@ -1,6 +1,6 @@
 "use client";
 
-import { Show } from "@/types/shows";
+import { ChannelStation} from "@/types/shows";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import usePlayer from "@/stores/usePlayer";
@@ -9,7 +9,7 @@ import { toggleRadioParams } from "@/types/general";
 import { PhPlayFill, PhStopFill } from "./Icons";
 
 interface RadioStationProps {
-  station?: Show;
+  station?: ChannelStation;
   isLoading: boolean;
   stationName: string;
   radioDescOpen: boolean;
@@ -39,7 +39,7 @@ const RadioStation: React.FC<RadioStationProps> = ({
   return (
     <div
       className={twMerge(
-        "flex h-[34px] w-full cursor-pointer items-center gap-1 border-b border-white bg-black px-1 transition-transform duration-300 hover:bg-neutral-700 first:lg:border-r ",
+        "flex h-[34px] w-full cursor-pointer items-center gap-1 border-b  border-white bg-black px-1 transition-transform duration-300 hover:bg-neutral-700 lg:odd:border-l ",
         isPlaying && "bg-white hover:bg-white",
         radioDescOpen && "absolute translate-y-[-35px]",
       )}

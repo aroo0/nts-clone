@@ -190,8 +190,16 @@ export interface GenreList {
 
 // Results
 
+export interface Artist
+  {
+    name: string,
+    role: string
+  }
+
+
 export interface Article {
   path: string;
+  title: string
 }
 
 
@@ -203,25 +211,46 @@ export interface Image {
   thumb: string;
 }
 
+interface Description {
+  highlight_html: string;
+  highlight_plain: string;
+}
+
+
 
 export interface ExploreEpisode {
   title: string;
   article_type: string;
-  artists: string[];
+  artists: Artist[];
   article: Article;
-  audio_sources: AudioSource[];
-  description: any
-  image: Image;
+  audio_sources?: AudioSource[];
+  description?: Description;
+  image?: Image;
   related_episode: any
   local_date: string;
   location: string;
-  genres: Genre[];
+  genres?: Genre[];
   track_uid: null | string;
   brand: any
 }
 
 export interface ExploreColection {
   metadata: Metadata;
+  results: ExploreEpisode[];
+  links: Link[];
+}
+
+interface SearchMetaData {
+  popular_terms: string[];
+  resultset: {
+    count: number;
+    offset: number;
+    limit: number;
+  };
+}
+
+export interface SearchResult {
+  metadata: SearchMetaData;
   results: ExploreEpisode[];
   links: Link[];
 }

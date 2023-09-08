@@ -1,5 +1,5 @@
 "use client";
-import { Show } from "@/types/shows";
+import { ChannelStation } from "@/types/shows";
 import { twMerge } from "tailwind-merge";
 import { useFormattedTimeRange } from "@/lib/utils";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import { toggleRadioParams } from "@/types/general";
 import { PhCaretRightBold, PhPlayFill, PhStopFill } from "./Icons";
 
 interface RadioStationDescriptionProps {
-  station?: Show;
+  station?: ChannelStation;
   stationName: string;
   isLoading: boolean;
   toggleRadio: (params: toggleRadioParams) => void;
