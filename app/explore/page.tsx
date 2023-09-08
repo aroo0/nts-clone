@@ -1,14 +1,17 @@
 import { API_PATH, API_URL } from "@/const/api";
-import {GenreList, Mood } from "@/types/shows";
+import { GenreList, Mood } from "@/types/shows";
 import axios from "axios";
 
 import ExploreSection from "./components/ExploreSection";
 
+interface ExploreProps {
+  searchParams: {
+    moods: string;
+    genres: string | string[];
+  };
+}
 
-export const revalidate = 0
-
-
-const Explore = async () => {
+const Explore = async ({ searchParams }: ExploreProps) => {
   const getMoods = async () => {
     const apiPath = `${API_URL}/${API_PATH.MOODES}`;
 
@@ -36,7 +39,6 @@ const Explore = async () => {
       <h1 className="text-2xl font-extrabold uppercase">Explore</h1>
       {/* @ts-ignore */}
       <ExploreSection genreList={await getGenres()} moodList={await getMoods()}
-
       />
     </div>
   );

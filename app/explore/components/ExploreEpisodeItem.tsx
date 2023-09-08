@@ -1,8 +1,8 @@
-import { useDate } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { ExploreEpisode} from "@/types/shows";
 import PlayPauseExploreEpisodeToggle from "./PlayPauseExploreEpisodeItem";
+
 
 interface ExploreEpisodeItemProps {
   data: ExploreEpisode;
@@ -17,7 +17,7 @@ const ExploreEpisodeItem: React.FC<ExploreEpisodeItemProps> = ({ data }) => {
     <div className="flex h-full flex-col border border-neutral-600 p-2 ">
       <div className="group relative h-[200px] w-full cursor-pointer ">
         <Image
-          src={data.image.medium}
+          src={data.image!.medium}
           alt={data.title}
           height={400}
           width={400}
@@ -38,8 +38,8 @@ const ExploreEpisodeItem: React.FC<ExploreEpisodeItemProps> = ({ data }) => {
         </h2>
       </Link>
       <div className="mt-auto flex flex-wrap gap-2 p-2">
-        {data.genres.map((tag, index) => (
-          <Link key={index} href={`/explore?genre=${tag.id}`}>
+        {data.genres!.map((tag, index) => (
+          <Link key={index} href={`/explore?genres=${tag.id}`}>
             <button className="border border-neutral-700 px-2 py-1.5 text-xs font-extrabold uppercase text-neutral-300 transition hover:bg-neutral-700">
               {tag.name}
             </button>

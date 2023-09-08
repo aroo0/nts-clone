@@ -7,7 +7,7 @@ import Genres from "./Genres";
 import ExploreButton from "./ExploreButton";
 import { useEffect, useState } from "react";
 import { drawerTypes, searchQueryInterface } from "../types";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
 
 interface ExploreSectionProps {
@@ -20,30 +20,34 @@ const ExploreSection: React.FC<ExploreSectionProps> = ({
   genreList,
 }) => {
   const [selectedDrawer, setSelectedDrawer] = useState<drawerTypes>("Moods");
-  const [searchQuery, setSearchQuery] = useState<searchQueryInterface>({
-    mood: null,
-    genres: {},
-  });
   const router = useRouter();
-  const [queryString, setQueryString] = useState<string>("");
+  const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState<searchQueryInterface>({
+    moods: undefined,
+    genres: [],
+  });
 
-  const redirectUrl = () => {
-    const query = {
-      moods: [searchQuery.mood?.id],
-      genres: Object.values(searchQuery.genres).map((genre) => genre.id),
-    };
-    setQueryString(qs.stringify(query, { arrayFormat: "bracket" }));
+  const moods = searchParams.get("moods") || undefined;
+  const genres = searchParams.getAll("genres");
 
-    const url = qs.stringifyUrl(
-      { url: "/explore", query: query },
-      { arrayFormat: "bracket" },
-    );
-    router.push(url);
-  };
+
 
   useEffect(() => {
-    redirectUrl();
-  }, [searchQuery, router, queryString]);
+    if (moods || genres.length !== 0) {
+      setSelectedDrawer("Results");
+    }
+    setSearchQuery({ moods: moods, genres: genres });
+  }, [searchParams]);
+
+  useEffect(() => {
+    const query = {
+      moods: searchQuery.moods,
+      genres: searchQuery.genres,
+    };
+
+    const url = qs.stringifyUrl({ url: "/explore", query: query });
+    router.push(url);
+  }, [searchQuery]);
 
   return (
     <div className="mt-6 grid gap-6">
@@ -62,26 +66,26 @@ const ExploreSection: React.FC<ExploreSectionProps> = ({
       <SelectedFilters
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        moodsParam={moods}
       />
 
       {selectedDrawer === "Moods" && (
         <Moods
           moodList={moodList}
+          setSelectedDrawer={setSelectedDrawer}
           setSearchQuery={setSearchQuery}
           searchQuery={searchQuery}
-          redirectUrl={redirectUrl}
-          setSelectedDrawer={setSelectedDrawer}
         />
       )}
       {selectedDrawer === "Genres" && (
         <Genres
           genreList={genreList}
+          setSelectedDrawer={setSelectedDrawer}
           setSearchQuery={setSearchQuery}
           searchQuery={searchQuery}
-          setSelectedDrawer={setSelectedDrawer}
         />
       )}
-      {selectedDrawer === "Results" && <Results queryString={queryString} />}
+      {selectedDrawer === "Results" && <Results searchQuery={searchQuery} />}
     </div>
   );
 };

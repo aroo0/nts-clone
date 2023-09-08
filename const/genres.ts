@@ -380,5 +380,15 @@ export const genreList: Genres = {
   "other-soundtrack": "Soundtrack",
   "other-space-age-pop": "Space Age Pop",
   "other-spoken-word": "Spoken Word",
-  "other-talk": "Talk"
+  "other-talk": "Talk",
+  "sedative": "SEDATIVE",
+  "the-healing-place": "The Healing Place",
+  "don-t-assume": "DON’T ASSUME",
+  "safe-for-work": "SAFE FOR WORK",
+  "music-to-dance-to": "MUSIC TO DANCE TO",
+  "maximum-effort": "MAXIMUM EFFORT",
+  "nosebleed": "Nosebleed",
+  "lean-back": "LEAN BACK",
+  "audio-research": "AUDIO RESEARCH",
+  "lsd": "LSD"
 }

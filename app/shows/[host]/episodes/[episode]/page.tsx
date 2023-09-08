@@ -64,7 +64,13 @@ const Episode: React.FC<EpisodeProps> = async ({
           <p className="text-sm">{data.description}</p>
           <div className="mt-auto flex flex-wrap gap-2">
             {data.genres.map((tag, index) => (
-              <Link key={index} href={`/explore/genre/${tag.id}`}>
+              <Link
+                key={index}
+                href={`/explore?${tag.id.split("-")[0]}=${tag.id
+                  .split("-")
+                  .slice(1)
+                  .join("-")}`}
+              >
                 <button className="border border-neutral-700 px-1.5 py-1 text-xs font-extrabold uppercase transition hover:bg-neutral-700 hover:text-white">
                   {tag.value}
                 </button>

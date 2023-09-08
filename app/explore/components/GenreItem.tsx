@@ -7,40 +7,32 @@ import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { drawerTypes, searchQueryInterface } from "../types";
 
-
 interface GenreItemProps {
   genre: Genre;
+  setSelectedDrawer: (value: drawerTypes) => void;
   searchQuery: searchQueryInterface;
   setSearchQuery: (value: searchQueryInterface) => void;
-  setSelectedDrawer: (value: drawerTypes) => void
-
-  
 }
 
 const GenreItem: React.FC<GenreItemProps> = ({
   genre,
+  setSelectedDrawer,
   searchQuery,
   setSearchQuery,
-  setSelectedDrawer
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleAddGenreToQuery = (genre: Genre) => {
-    const updatedGenres = searchQuery.genres;
-    const alias = genre.id;
-    if (updatedGenres[alias]) {
-      delete updatedGenres[alias];
+  const handletoggleGenre = (tag: string) => {
+    const genres = searchQuery.genres;
+    if (!genres.includes(tag)) {
+      genres.push(tag);
     } else {
-      updatedGenres[alias] = genre;
+      const updatedGenres = genres.filter((genre) => genre !== tag);
+      setSearchQuery({ ...searchQuery, genres: updatedGenres });
     }
-
-    setSearchQuery({
-      ...searchQuery,
-      genres: updatedGenres,
-    });
-    setSelectedDrawer('Results')
-
+    setSearchQuery({ ...searchQuery, genres });
   };
+
 
   return (
     <Collapsible.Root open={isOpen} onOpenChange={setIsOpen} className="">
@@ -48,9 +40,9 @@ const GenreItem: React.FC<GenreItemProps> = ({
         <button
           className={twMerge(
             "border border-neutral-700 px-3 py-1 text-xs font-extrabold uppercase hover:bg-neutral-700",
-            searchQuery.genres[genre.id] && "bg-neutral-700"
+            searchQuery.genres.includes(genre.id) && "bg-neutral-700",
           )}
-          onClick={() => handleAddGenreToQuery(genre)}
+          onClick={() => handletoggleGenre(genre.id)}
         >
           {genre.name}
         </button>
@@ -69,8 +61,11 @@ const GenreItem: React.FC<GenreItemProps> = ({
           {genre.subgenres?.map((subgenre) => (
             <li key={subgenre.id}>
               <button
-                className={twMerge("border border-neutral-700 px-2 py-1 text-xs font-extrabold uppercase text-neutral-300 hover:bg-neutral-700", searchQuery.genres[subgenre.id] && "bg-neutral-700")}
-                onClick={() => handleAddGenreToQuery(subgenre)}
+                className={twMerge(
+                  "border border-neutral-700 px-2 py-1 text-xs font-extrabold uppercase text-neutral-300 hover:bg-neutral-700",
+                  searchQuery.genres.includes(subgenre.id) && "bg-neutral-700",
+                )}
+                onClick={() => handletoggleGenre(subgenre.id)}
               >
                 {subgenre.name}
               </button>

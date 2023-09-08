@@ -1,25 +1,14 @@
-import { PhCaretRightBold } from "@/components/Icons";
-import { Mood } from "@/types/shows";
 import { twMerge } from "tailwind-merge";
 import { ExtendedMood, drawerTypes, searchQueryInterface } from "../types";
 
-
-
 interface MoodsProps {
-  moodList: ExtendedMood[] ;
+  moodList: ExtendedMood[];
+  setSelectedDrawer: (value: drawerTypes) => void;
   searchQuery: searchQueryInterface;
   setSearchQuery: (value: searchQueryInterface) => void;
-  redirectUrl: () => void;
-  setSelectedDrawer: (value: drawerTypes) => void
-
 }
 
-const Moods: React.FC<MoodsProps> = ({
-  moodList,
-  searchQuery,
-  setSearchQuery,
-  setSelectedDrawer
-}) => {
+const Moods: React.FC<MoodsProps> = ({ moodList, setSelectedDrawer, setSearchQuery, searchQuery }) => {
   return (
     <div className="grid w-full grid-cols-2  gap-2 lg:grid-cols-4 2xl:grid-cols-6">
       {moodList.map((mood) => (
@@ -27,13 +16,13 @@ const Moods: React.FC<MoodsProps> = ({
           key={mood.id}
           className={twMerge(
             "ease group relative my-auto flex  h-[30vw]  min-w-[100px] flex-col items-center justify-center gap-3 border border-neutral-600 after:absolute  after:top-0 after:h-full after:w-full after:border-2 after:border-neutral-500 after:opacity-0 after:mix-blend-plus-lighter after:transition after:content-[''] hover:after:opacity-100 lg:h-[182px]",
-            mood === searchQuery.mood && "after:opacity-100",
+            searchQuery.moods === mood.id && "after:opacity-100",
           )}
           onClick={() => {
             mood['type'] = "Mood"
             setSearchQuery({
               ...searchQuery,
-              mood: searchQuery.mood === mood ? null : mood,
+              moods: searchQuery.moods === mood.id ? undefined : mood.id,
             })
             setSelectedDrawer("Results")
             

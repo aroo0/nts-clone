@@ -3,9 +3,10 @@ import { Genre, Mood } from "@/types/shows";
 export type drawerTypes = "Moods" | "Genres" | "Results";
 
 export interface searchQueryInterface {
-  mood: Mood | null;
-  genres: { [key: string]: Genre };
+  moods?: string,
+  genres: string[]
 }
+
 
 export interface ExtendedMood extends Mood {
   type?: "Mood";

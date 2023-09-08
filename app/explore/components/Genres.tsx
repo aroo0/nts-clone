@@ -4,17 +4,17 @@ import { ExtendedGenre, drawerTypes, searchQueryInterface } from "../types";
 
 interface GenresProps {
   genreList: ExtendedGenre[];
+  setSelectedDrawer: (value: drawerTypes) => void
   searchQuery: searchQueryInterface;
   setSearchQuery: (value: searchQueryInterface) => void;
-  setSelectedDrawer: (value: drawerTypes) => void
 
 }
 
 const Genres: React.FC<GenresProps> = ({
   genreList,
+  setSelectedDrawer,
   searchQuery,
-  setSearchQuery,
-  setSelectedDrawer
+  setSearchQuery
 }) => {
   return (
     <ul className="flex flex-col items-start">
@@ -22,9 +22,9 @@ const Genres: React.FC<GenresProps> = ({
         <li key={genre.id}>
           <GenreItem
             genre={genre}
+            setSelectedDrawer={setSelectedDrawer}
             setSearchQuery={setSearchQuery}
             searchQuery={searchQuery}
-            setSelectedDrawer={setSelectedDrawer}
           />
         </li>
       ))}

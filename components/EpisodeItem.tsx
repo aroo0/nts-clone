@@ -8,8 +8,6 @@ interface EpisodeItemProps {
   data: Episode;
 }
 
-
-
 const EpisodeItem: React.FC<EpisodeItemProps> = ({ data }) => {
   return (
     <div className="flex h-full flex-col border border-neutral-600 p-2 ">
@@ -37,8 +35,14 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ data }) => {
       </Link>
       <div className="mt-auto flex flex-wrap gap-2 p-2">
         {data.genres.map((tag, index) => (
-          <Link key={index} href={`/explore?genre=${tag.id}`}>
-            <button className="border border-neutral-700 px-2 py-1.5 text-xs font-extrabold uppercase text-neutral-300 transition hover:bg-neutral-700">
+          <Link
+            key={index}
+            href={`/explore?${tag.id.split("-")[0]}=${tag.id
+              .split("-")
+              .slice(1)
+              .join("-")}`}
+          >
+            <button className="border border-neutral-700 px-1.5 py-1 text-xs font-extrabold uppercase transition hover:bg-neutral-700 hover:text-white">
               {tag.value}
             </button>
           </Link>
