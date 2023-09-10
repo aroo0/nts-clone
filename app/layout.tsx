@@ -2,10 +2,13 @@ import Header from "@/components/Header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Arimo } from "next/font/google";
-import Providers from "@/components/Providers";
+import QueryProvider from "@/components/QueryProvider";
 import ToasterProvider from "@/components/ToasterProvider";
 import MixtapeRadio from "@/components/MixtapeRadio";
 import EpisodeRadio from "@/components/EpisodeRadio";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import Link from "next/link";
 
 const arimo = Arimo({ subsets: ["latin"], weight: "400" });
 
@@ -14,24 +17,32 @@ export const metadata: Metadata = {
   description: "Listen to the NTS music.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <html lang="en" className={arimo.className}>
-      <Providers>
+      <QueryProvider>
         <body className="overflow-y-scroll">
           <ToasterProvider />
           <Header />
+
           <main className="box-border h-full w-full  pt-[110px] lg:pt-[78px]">
             {children}
           </main>
+
           <MixtapeRadio />
           <EpisodeRadio />
         </body>
-      </Providers>
+      </QueryProvider>
     </html>
   );
 }

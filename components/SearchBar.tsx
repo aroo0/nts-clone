@@ -1,25 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TeenyiconsSearchOutline } from "./Icons";
 import { useRouter } from "next/navigation";
-import useDebounce from "@/hooks/useDebounce";
 
 const SearchBar = () => {
   const [value, setValue] = useState("");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsButtonDisabled(true);
     router.push(`/find?q=${value}&types=episode`);
   };
+
+  useEffect(() => {
+    if (isButtonDisabled) {
+      const timeoutId = setTimeout(() => {
+        setIsButtonDisabled(false);
+      }, 1000);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isButtonDisabled]);
 
   return (
     <form
       onSubmit={(e) => handleSubmit(e)}
       className="flex items-center gap-2 "
     >
-      <button className="text-white transition focus:opacity-70 ">
+      <button
+        className="text-white transition focus:opacity-70 "
+        disabled={isButtonDisabled}
+      >
         <TeenyiconsSearchOutline className="h-[14px] w-[14px]" />
       </button>
       <input

@@ -24,7 +24,7 @@ const useLogo = () => {
 
   return (
     <Link
-    className={clsx("text-sm uppercase focus:opacity-70 hover:opacity-70 transition", routes.home && "font-extrabold")}
+    className={clsx("text-sm uppercase focus:opacity-70 hover:opacity-70 transition")}
     href={routes.home.href}
   >
     <span aria-label="Home">{logo}</span>

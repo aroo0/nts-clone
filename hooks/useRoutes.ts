@@ -35,8 +35,8 @@ const useRoutes = () => {
             },
             myNts: {
               label: "My NTS",
-              href: "/my-nts",
-              active: pathname === "/my-nts",
+              href: "/my-nts/favourites/shows",
+              active: pathname === "/my-nts/favourites/shows",
               icon: MaterialSymbolsPersonOutline
             },
             scheduleOne: {

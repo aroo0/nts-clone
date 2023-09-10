@@ -1,9 +1,9 @@
-"use client";
+
+"use client"
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "react-hot-toast";
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
+const QueryProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = new QueryClient();
 
   return (
@@ -13,4 +13,4 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Providers;
+export default QueryProvider;
