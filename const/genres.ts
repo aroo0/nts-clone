@@ -1,6 +1,18 @@
 
-interface Genres {
+export interface Genres {
   [genre: string]: string;
+}
+
+export const shortGenreList: Genres = {
+  "ambientnewage": "ambient / new age",
+  "housetechno": "house / techno",
+  "discoboogie": "disco / boogie",
+  "postpunkwave": "post punk / new wave",
+  "jazz": "jazz",
+  "hiphoprandb": "hip-hop / r'n'b",
+  "caribbean": "caribbean",
+  "rock": "rock",
+
 }
 export const genreList: Genres = {
   "ambientnewage": "ambient / new age",

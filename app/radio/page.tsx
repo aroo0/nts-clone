@@ -2,7 +2,7 @@ import EpisodesFeed from "@/components/EpisodesFeed";
 import { PhCaretRightBold } from "@/components/Icons";
 import SliderFeed from "@/components/SliderFeed";
 import { API_PATH, API_URL } from "@/const/api";
-import { genreList } from "@/const/genres";
+import { shortGenreList } from "@/const/genres";
 import { Episode } from "@/types/shows";
 import axios from "axios";
 import Link from "next/link";
@@ -38,7 +38,6 @@ const NtsPicks = async () => {
             Tune in live or listen back to our music archive of radio and mixes.
           </p>
         </div>
-
       </div>
       <div className="grid gap-10 border-b-2 border-white pb-20">
         <SliderFeed
@@ -61,16 +60,22 @@ const NtsPicks = async () => {
           }}
         />
       </div>
-      <div className="mb-20 flex flex-col items-center justify-center gap-8 border-b-2 border-white py-10 px-4">
+      <div className="mb-20 flex flex-col items-center justify-center gap-8 border-b-2 border-white px-4 py-10">
         <h2 className="text-2xl font-extrabold uppercase">
           DISCOVER MUSIC BY GENRE
         </h2>
 
-        <ul className="grid grid-cols-2 gap-4 lg:grid-cols-4 items-stretch	justify-stretch">
-          {genreList.map((genre) => (
-            <li className="coursor-pointer  text-neutral-300 border border-neutral-600  flex  hover:bg-white hover:text-black transition " key={genre.id}>
-              <Link className="uppercase font-extrabold text-sm flex-grow p-5 text-center" href={`/explore?genre=${genre.id}`}>
-                {genre.name}
+        <ul className="grid grid-cols-2 items-stretch justify-stretch gap-4	lg:grid-cols-4">
+          {Object.entries(shortGenreList).map(([alias, name]) => (
+            <li
+              className="coursor-pointer  flex border border-neutral-600  text-neutral-300  transition hover:bg-white hover:text-black "
+              key={alias}
+            >
+              <Link
+                className="flex-grow p-5 text-center text-sm font-extrabold uppercase"
+                href={`/explore?genre=${alias}`}
+              >
+                {name}
               </Link>
             </li>
           ))}

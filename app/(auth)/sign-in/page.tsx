@@ -1,13 +1,24 @@
-interface pageProps {
-  
-}
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-const Login: React.FC<pageProps> = ({}) => {
+import AuthForm from "../components/AuthForm";
+
+const Login = async () => {
+  const supabase = createServerComponentClient<Database>({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session) {
+    redirect("/");
+  }
+
   return (
-    <div>
-       Sign in
+    <div className="flex h-full w-full items-center justify-center ">
+      <AuthForm type="LOGIN" />
     </div>
-   )
-}
+  );
+};
 
-export default Login
+export default Login;

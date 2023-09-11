@@ -77,10 +77,11 @@ const Results: React.FC<ResultsProps> = ({ searchQuery }) => {
     );
   }
 
-  if (query.moods.length === 0 || query.genres.length === 0) {
+  if (query.moods.length === 0 && query.genres.length === 0) {
     return (
       <div className="mt-10 flex flex-col items-center gap-3">
         <h2 className="font-extrabold uppercase">
+          {query.moods} 
           SELECT FILTERS TO EXPLORE THE ARCHIVE.
         </h2>
       </div>
