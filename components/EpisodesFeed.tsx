@@ -1,6 +1,4 @@
 "use client";
-
-import { API_PATH, API_URL } from "@/const/api";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useIntersection } from "@mantine/hooks";
 import axios from "axios";

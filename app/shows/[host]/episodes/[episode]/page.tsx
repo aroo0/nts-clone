@@ -5,12 +5,11 @@ import SaveEpisodeAction from "@/components/SaveEpisodeAction";
 import { API_PATH, API_URL } from "@/const/api";
 import { useDate } from "@/lib/utils";
 import { Episode, Show } from "@/types/shows";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { cookies } from "next/headers";
+import getLike from "@/actions/getLike";
 
 interface EpisodeProps {
   params: {
@@ -52,46 +51,12 @@ const Episode: React.FC<EpisodeProps> = async ({
 
   const episodeDate = useDate(episodeData.updated);
 
-  const supabase = createServerComponentClient<Database>({ cookies });
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const getLikeExist = async () => {
-    if (user && episodeData) {
-      const { data: like, error } = await supabase
-        .from("episodeLikes")
-        .select()
-        .eq("user_id", user.id)
-        .eq("episode_alias", episodeData.episode_alias);
-
-      if (error) {
-        console.log(error);
-      }
-      return Array.isArray(like) ? like[0] : like;
-    }
-    return null;
-  };
-
-
-  const getFavoriteHost = async () => {
-    if (user && episodeData) {
-      const { data: like, error } = await supabase
-        .from("showLikes")
-        .select()
-        .eq("user_id", user.id)
-        .eq("show_alias", episodeData.show_alias);
-
-      if (error) {
-        console.log(error);
-      }
-      return Array.isArray(like) ? like[0] : like;
-    }
-    return null;
-  };
-  const isLikedEpiosde = await getLikeExist();
-  const isFavoriteHost = await getFavoriteHost();
+  const isLikedEpiosde = await getLike(
+    "episodeLikes",
+    "episode_alias",
+    episode,
+  );
+  const isFavoriteHost = await getLike("showLikes", "show_alias", host);
 
   return (
     <div className="w-full lg:relative lg:min-h-full lg:pt-[78px]">
@@ -147,10 +112,18 @@ const Episode: React.FC<EpisodeProps> = async ({
                 }}
                 existingLike={!!isLikedEpiosde}
               />
-              <FavoriteShowAction classToSent="h-7 w-7" isFavoriteHost={!!isFavoriteHost}  data={episodeData.show_alias}/>
+              <FavoriteShowAction
+                classToSent="h-7 w-7"
+                isFavoriteHost={!!isFavoriteHost}
+                data={{
+                  alias: episodeData.show_alias,
+                  name: showData.name,
+                  img: showData.media.background_thumb,
+                }}
+              />
               <CopyLinkAction classToSent="h-6 w-6" />
             </div>
-            <Lin
+            <Link
               href={`/shows/${host}`}
               className="font-extrabold uppercase text-neutral-700 hover:text-neutral-400"
             >

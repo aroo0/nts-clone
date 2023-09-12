@@ -1,8 +1,7 @@
+import getLike from "@/actions/getLike";
 import CopyLinkAction from "@/components/CopyLinkAction";
 import EpisodesFeed from "@/components/EpisodesFeed";
 import FavoriteShowAction from "@/components/FavoriteShowAction";
-import { PhPlayFill } from "@/components/Icons";
-import UserActions from "@/components/SaveEpisodeAction";
 import { API_PATH, API_URL } from "@/const/api";
 import { Show } from "@/types/shows";
 import axios from "axios";
@@ -14,7 +13,6 @@ interface EpisodeProps {
     host: string;
   };
 }
-
 const Episode: React.FC<EpisodeProps> = async ({ params: { host } }) => {
   const apiPath = `${API_URL}/${API_PATH.SHOWS}/${host}`;
   const getShowData = async () => {
@@ -28,8 +26,10 @@ const Episode: React.FC<EpisodeProps> = async ({ params: { host } }) => {
 
   const data = await getShowData();
 
-  if (!data) return notFound();
+  const isFavoriteHost = await getLike("showLikes","show_alias", host);
 
+  if (!data) return notFound();
+ 
   return (
     <div className="relative h-full w-full">
       <div className="relative min-h-[80%] w-full">
@@ -58,7 +58,15 @@ const Episode: React.FC<EpisodeProps> = async ({ params: { host } }) => {
             <p className="text-sm">{data.description}</p>
 
             <div className=" mt-4 hidden items-center gap-4 text-black md:flex">
-              <FavoriteShowAction classToSent="h-7 w-7" />
+              <FavoriteShowAction
+                classToSent="h-7 w-7"
+                isFavoriteHost={!!isFavoriteHost}
+                data={{
+                  alias: data.show_alias,
+                  name: data.name,
+                  img: data.media.background_thumb,
+                }}
+              />
               <CopyLinkAction classToSent="h-6 w-6" />
             </div>
           </div>

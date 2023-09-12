@@ -75,18 +75,18 @@ const SaveEpisodeAction: React.FC<SaveEpisodeActionProps> = ({
           date: date,
           show_alias: showAlias,
         })
-        .select();
       if (error) {
         setIsLiked(false);
         return toast.error("Something went wrong.");
       }
     }
 
-    const { data: like, error } = await supabase.from("episodeLikes").insert({
+    const { error } = await supabase.from("episodeLikes").insert({
       user_id: user.id,
       episode_alias: alias,
     });
     if (error) {
+      setIsLiked(false);
       return toast.error("Something went wrong.");
     } else {
       router.refresh();
