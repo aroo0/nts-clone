@@ -17,7 +17,7 @@ interface EpisodeProps {
 
 const Episode: React.FC<EpisodeProps> = async ({ params: { host } }) => {
   const apiPath = `${API_URL}/${API_PATH.SHOWS}/${host}`;
-  const getEpisodeData = async () => {
+  const getShowData = async () => {
     try {
       const { data } = await axios.get(apiPath);
       return data as Show;
@@ -26,7 +26,7 @@ const Episode: React.FC<EpisodeProps> = async ({ params: { host } }) => {
     }
   };
 
-  const data = await getEpisodeData();
+  const data = await getShowData();
 
   if (!data) return notFound();
 

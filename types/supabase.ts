@@ -11,26 +11,26 @@ export interface Database {
     Tables: {
       episodeLikes: {
         Row: {
-          episode_id: string | null
+          episode_alias: string | null
           id: string
           user_id: string
         }
         Insert: {
-          episode_id?: string | null
+          episode_alias?: string | null
           id?: string
           user_id?: string
         }
         Update: {
-          episode_id?: string | null
+          episode_alias?: string | null
           id?: string
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "episodeLikes_episode_id_fkey"
-            columns: ["episode_id"]
+            foreignKeyName: "episodeLikes_episode_alias_fkey"
+            columns: ["episode_alias"]
             referencedRelation: "episodes"
-            referencedColumns: ["id"]
+            referencedColumns: ["alias"]
           },
           {
             foreignKeyName: "episodeLikes_user_id_fkey"
@@ -44,53 +44,50 @@ export interface Database {
         Row: {
           alias: string
           date: string | null
-          id: string
           img: string | null
           name: string | null
-          show_id: string | null
+          show_alias: string | null
         }
         Insert: {
           alias: string
           date?: string | null
-          id?: string
           img?: string | null
           name?: string | null
-          show_id?: string | null
+          show_alias?: string | null
         }
         Update: {
           alias?: string
           date?: string | null
-          id?: string
           img?: string | null
           name?: string | null
-          show_id?: string | null
+          show_alias?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "episodes_show_id_fkey"
-            columns: ["show_id"]
+            foreignKeyName: "episodes_show_alias_fkey"
+            columns: ["show_alias"]
             referencedRelation: "shows"
-            referencedColumns: ["id"]
+            referencedColumns: ["alias"]
           }
         ]
       }
       profiles: {
         Row: {
           email: string
-          id: string
+          user_id: string
         }
         Insert: {
           email: string
-          id: string
+          user_id: string
         }
         Update: {
           email?: string
-          id?: string
+          user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "profiles_id_fkey"
-            columns: ["id"]
+            foreignKeyName: "profiles_user_id_fkey"
+            columns: ["user_id"]
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -99,25 +96,25 @@ export interface Database {
       showLikes: {
         Row: {
           id: string
-          show_id: string | null
+          show_alias: string | null
           user_id: string
         }
         Insert: {
           id?: string
-          show_id?: string | null
+          show_alias?: string | null
           user_id?: string
         }
         Update: {
           id?: string
-          show_id?: string | null
+          show_alias?: string | null
           user_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "showLikes_show_id_fkey"
-            columns: ["show_id"]
+            foreignKeyName: "showLikes_show_alias_fkey"
+            columns: ["show_alias"]
             referencedRelation: "shows"
-            referencedColumns: ["id"]
+            referencedColumns: ["alias"]
           },
           {
             foreignKeyName: "showLikes_user_id_fkey"
@@ -130,21 +127,18 @@ export interface Database {
       shows: {
         Row: {
           alias: string
-          id: string
           img: string | null
-          name: string | null
+          name: string
         }
         Insert: {
           alias: string
-          id?: string
           img?: string | null
-          name?: string | null
+          name: string
         }
         Update: {
           alias?: string
-          id?: string
           img?: string | null
-          name?: string | null
+          name?: string
         }
         Relationships: []
       }

@@ -2,26 +2,36 @@
 
 import { useState } from "react";
 import {
-  PhBookmarkSimpleLight,
+  PhBookmarkSimpleLight, PhHeartStraightFill, PhHeartStraightLight,
 } from "./Icons";
 import { twMerge } from "tailwind-merge";
 
 interface FavoriteShowActionProps {
-  classToSent?: string
+  classToSent?: string;
+  isFavoriteHost: boolean;
+  showAlias: string
 }
 
 const FavoriteShowAction: React.FC<FavoriteShowActionProps> = ({
-  classToSent
+  classToSent,
+  isFavoriteHost
 }) => {
-  const [isLieked, setIsLiked] = useState();
+  const [isLiked, setIsLiked] = useState();
+
+  const handleFavorite = () => {
+
+  }
 
   return (
-    <div className="flex gap-4 text-black items-center">
-      <button>
-        <PhBookmarkSimpleLight className={twMerge("", classToSent)} />
-      </button>
 
-    </div>
+        <button title='Favorite Host' onClick={() => handleFavorite()}>
+        {isLiked ? (
+          <PhHeartStraightFill  className={twMerge("", classToSent)} />
+        ) : (
+          <PhHeartStraightLight className={twMerge("", classToSent)} />
+        )}
+      </button>
+    
   );
 };
 

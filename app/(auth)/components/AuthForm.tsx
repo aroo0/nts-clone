@@ -12,6 +12,7 @@ import { redirect, useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { NextResponse } from "next/server";
 import { AuthError } from "@supabase/supabase-js";
+import { twMerge } from "tailwind-merge";
 
 interface AuthFormProps {
   type: Variant;
@@ -37,17 +38,25 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
   });
 
   const handleSignIn = async ({ email, password }: SignUserData) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    setIsSubmiting(true);
 
-    if (error) {
-      setError("Something went wrong.");
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
+      if (error) {
+        setError("Something went wrong.");
+        return new NextResponse("Something went wrong.", { status: 400 });
+      }
+
+      router.push(`${location.origin}/${continueParam}`);
+    } catch (error) {
       return new NextResponse("Something went wrong.", { status: 400 });
+    } finally {
+      setIsSubmiting(false);
     }
-    router.push(`${location.origin}/${continueParam}`);
   };
 
   const handleSignUp = async ({ email, password }: SignUserData) => {
@@ -84,7 +93,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type }) => {
 
   return (
     <>
-      <div className="grid w-full place-items-center gap-4 border-neutral-700 p-2 pb-12 sm:mt-[-100px] sm:w-auto	sm:border sm:p-8">
+      <div className={twMerge("relative grid w-full place-items-center gap-4 border-neutral-700 p-2 pb-12 sm:mt-[-100px] sm:w-auto	sm:border sm:p-8", isSubmitting && "after:absolute after:top-0 after:content-[''] after:w-full after:h-full after:bg-neutral-900/50 cursor-wait")}>
         <h1 className="text-2xl font-extrabold uppercase">MY NTS</h1>
         <div className="grid w-full gap-4">
           <AuthNav type={type} />

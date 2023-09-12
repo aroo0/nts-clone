@@ -1,7 +1,7 @@
 import { useDate } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { Episode, Genre } from "@/types/shows";
+import { Episode } from "@/types/shows";
 import PlayPauseToggle from "./PlayPauseEpisodeItem";
 
 interface EpisodeItemProps {
@@ -9,6 +9,8 @@ interface EpisodeItemProps {
 }
 
 const EpisodeItem: React.FC<EpisodeItemProps> = ({ data }) => {
+
+
   return (
     <div className="flex h-full flex-col border border-neutral-600 p-2 ">
       <div className="group relative h-[200px] w-full cursor-pointer ">
