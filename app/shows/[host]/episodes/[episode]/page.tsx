@@ -2,16 +2,15 @@ import CopyLinkAction from "@/components/CopyLinkAction";
 import FavoriteShowAction from "@/components/FavoriteShowAction";
 import PlayPauseEpisodePage from "@/components/PlayPauseEpisodePage";
 import SaveEpisodeAction from "@/components/SaveEpisodeAction";
-import { API_PATH, API_URL } from "@/const/api";
 import { useDate } from "@/lib/utils";
-import { Episode, Show } from "@/types/shows";
-import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import getLike from "@/actions/getLike";
+import getShowData from "@/actions/getShowData";
+import getEpisodeData from "@/actions/getEpisodeData";
 
-interface EpisodeProps {
+interface EpisodePageProps {
   params: {
     host: string;
     episode: string;
@@ -20,32 +19,12 @@ interface EpisodeProps {
 
 export const dynamic = "force-dynamic";
 
-const Episode: React.FC<EpisodeProps> = async ({
+const EpisodePage: React.FC<EpisodePageProps> = async ({
   params: { host, episode },
 }) => {
-  const getEpisodeData = async () => {
-    try {
-      const { data } = await axios.get(
-        `${API_URL}/${API_PATH.SHOWS}/${host}/episodes/${episode}`,
-      );
-      return data as Episode;
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const getShowData = async () => {
-    const apiPath = `${API_URL}/${API_PATH.SHOWS}/${host}`;
-    try {
-      const { data } = await axios.get(apiPath);
-      return data as Show;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const episodeData = await getEpisodeData();
-  const showData = await getShowData();
+  const episodeData = await getEpisodeData(host, episode);
+  const showData = await getShowData(host);
 
   if (!episodeData || !showData) return notFound();
 
@@ -155,4 +134,4 @@ const Episode: React.FC<EpisodeProps> = async ({
   );
 };
 
-export default Episode;
+export default EpisodePage;

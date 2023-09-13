@@ -1,10 +1,9 @@
 import getLike from "@/actions/getLike";
+import getShowData from "@/actions/getShowData";
 import CopyLinkAction from "@/components/CopyLinkAction";
 import EpisodesFeed from "@/components/EpisodesFeed";
 import FavoriteShowAction from "@/components/FavoriteShowAction";
 import { API_PATH, API_URL } from "@/const/api";
-import { Show } from "@/types/shows";
-import axios from "axios";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -15,16 +14,9 @@ interface EpisodeProps {
 }
 const Episode: React.FC<EpisodeProps> = async ({ params: { host } }) => {
   const apiPath = `${API_URL}/${API_PATH.SHOWS}/${host}`;
-  const getShowData = async () => {
-    try {
-      const { data } = await axios.get(apiPath);
-      return data as Show;
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const data = await getShowData();
+
+  const data = await getShowData(host);
 
   const isFavoriteHost = await getLike("showLikes","show_alias", host);
 
