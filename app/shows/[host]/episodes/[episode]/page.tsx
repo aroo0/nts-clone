@@ -6,7 +6,6 @@ import { useDate } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import getLike from "@/actions/getLike";
 import getShowData from "@/actions/getShowData";
 import getEpisodeData from "@/actions/getEpisodeData";
 
@@ -22,7 +21,6 @@ export const dynamic = "force-dynamic";
 const EpisodePage: React.FC<EpisodePageProps> = async ({
   params: { host, episode },
 }) => {
-
   const episodeData = await getEpisodeData(host, episode);
   const showData = await getShowData(host);
 
@@ -30,12 +28,6 @@ const EpisodePage: React.FC<EpisodePageProps> = async ({
 
   const episodeDate = useDate(episodeData.updated);
 
-  const isLikedEpiosde = await getLike(
-    "episodeLikes",
-    "episode_alias",
-    episode,
-  );
-  const isFavoriteHost = await getLike("showLikes", "show_alias", host);
 
   return (
     <div className="w-full lg:relative lg:min-h-full lg:pt-[78px]">
@@ -51,7 +43,14 @@ const EpisodePage: React.FC<EpisodePageProps> = async ({
       <div className="top-1/2 z-[20] w-full lg:absolute lg:w-[40%]">
         <div className="flex w-full flex-col gap-3 bg-white px-9 py-7 text-black ">
           <div className="flex gap-4 border-b border-black pb-4">
-            <PlayPauseEpisodePage data={episodeData} />
+            <PlayPauseEpisodePage
+              episodeData={episodeData}
+              showData={{
+                showAlias: showData.show_alias,
+                showName: showData.name,
+                showImage: showData.media.background_thumb,
+              }}
+            />
 
             <div className="flex flex-col gap-2 p-1 uppercase">
               <h1 className="text-2xl font-extrabold">{episodeData.name}</h1>
@@ -89,11 +88,9 @@ const EpisodePage: React.FC<EpisodePageProps> = async ({
                   date: episodeDate,
                   showAlias: episodeData.show_alias,
                 }}
-                existingLike={!!isLikedEpiosde}
               />
               <FavoriteShowAction
                 classToSent="h-7 w-7"
-                isFavoriteHost={!!isFavoriteHost}
                 data={{
                   alias: episodeData.show_alias,
                   name: showData.name,

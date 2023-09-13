@@ -1,6 +1,6 @@
 "use client";
 
-import { experimental_useOptimistic as useOptimistic, useState } from "react";
+import { useEffect, experimental_useOptimistic as useOptimistic, useState } from "react";
 import {
   PhBookmarkSimpleFill,
   PhBookmarkSimpleLight,
@@ -19,17 +19,43 @@ interface SaveEpisodeActionProps {
     date: string;
     showAlias: string;
   };
-  existingLike: boolean;
+
 }
 
 const SaveEpisodeAction: React.FC<SaveEpisodeActionProps> = ({
   classToSent,
   data,
-  existingLike,
 }) => {
-  const [isLiked, setIsLiked] = useState<boolean>(existingLike);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
   const { alias, img, name, date, showAlias } = data;
   const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
+
+
+  useEffect(() => {
+    const getIsLiked = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        return;
+      }
+      const { data: like, error } = await supabase
+      .from('episodeLikes')
+      .select()
+      .eq("user_id", user.id)
+      .eq('episode_alias', alias);
+
+    if (error) {
+      console.log(error);
+    }
+    setIsLiked(Array.isArray(like) ? !!like[0] : !!like);
+     
+    };
+
+    getIsLiked();
+  }, [supabase, setIsLiked, data]);
+
 
   const handleLikeEpisode = async () => {
     const supabase = createClientComponentClient<Database>();
@@ -40,7 +66,7 @@ const SaveEpisodeAction: React.FC<SaveEpisodeActionProps> = ({
       return;
     }
     // Delete like if exist
-    if (existingLike) {
+    if (isLiked) {
       setIsLiked(false);
       const { error } = await supabase
         .from("episodeLikes")

@@ -16,6 +16,14 @@ export interface activePlayerInfo {
   subtitle?: string,
   tracklist?: string,
   source?: AudioSource[]
-  
+  showData?: ShortShow,
+
+}
+
+
+export interface ShortShow {
+  showName: string,
+  showAlias: string,
+  showImage: string
 }
 

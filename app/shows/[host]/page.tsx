@@ -1,4 +1,3 @@
-import getLike from "@/actions/getLike";
 import getShowData from "@/actions/getShowData";
 import CopyLinkAction from "@/components/CopyLinkAction";
 import EpisodesFeed from "@/components/EpisodesFeed";
@@ -15,10 +14,7 @@ interface EpisodeProps {
 const Episode: React.FC<EpisodeProps> = async ({ params: { host } }) => {
   const apiPath = `${API_URL}/${API_PATH.SHOWS}/${host}`;
 
-
   const data = await getShowData(host);
-
-  const isFavoriteHost = await getLike("showLikes","show_alias", host);
 
   if (!data) return notFound();
  
@@ -52,7 +48,6 @@ const Episode: React.FC<EpisodeProps> = async ({ params: { host } }) => {
             <div className=" mt-4 hidden items-center gap-4 text-black md:flex">
               <FavoriteShowAction
                 classToSent="h-7 w-7"
-                isFavoriteHost={!!isFavoriteHost}
                 data={{
                   alias: data.show_alias,
                   name: data.name,

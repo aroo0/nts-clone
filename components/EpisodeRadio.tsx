@@ -11,7 +11,6 @@ import CopyLinkAction from "./CopyLinkAction";
 
 const EpisodeRadio = () => {
   const { activePlayer } = usePlayer();
-
   const { stopRadio } = useRadioToggle();
 
   return (
@@ -59,8 +58,22 @@ const EpisodeRadio = () => {
             />
           </Link>
           <div className=" hidden items-center gap-4 text-black md:flex">
-            <SaveEpisodeAction classToSent="h-6 w-6" />
-            <FavoriteShowAction classToSent="h-6 w-6" />
+            <SaveEpisodeAction
+              classToSent="h-6 w-6"
+              data={{
+                alias: activePlayer.stationName!,
+                img: activePlayer.info?.image!,
+                name: activePlayer.info?.name!,
+                date: activePlayer.info?.date!,
+                showAlias: activePlayer.info?.showData?.showAlias!,
+              }}
+            />
+            <FavoriteShowAction classToSent="h-6 w-6"
+                data={{
+                  alias: activePlayer.info?.showData?.showAlias!,
+                  name: activePlayer.info?.showData?.showName!,
+                  img: activePlayer.info?.showData?.showImage!,
+                }}/>
             <CopyLinkAction classToSent="h-5 w-5" />
           </div>
           <Link

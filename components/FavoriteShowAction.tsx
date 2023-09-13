@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   PhBookmarkSimpleLight,
   PhHeartStraightFill,
@@ -13,7 +13,6 @@ import { useRouter } from "next/navigation";
 
 interface FavoriteShowActionProps {
   classToSent?: string;
-  isFavoriteHost: boolean;
   data: {
     alias: string;
     name: string;
@@ -23,16 +22,39 @@ interface FavoriteShowActionProps {
 
 const FavoriteShowAction: React.FC<FavoriteShowActionProps> = ({
   classToSent,
-  isFavoriteHost,
   data,
 }) => {
   const router = useRouter();
-  const [isFavorite, setIsFavorite] = useState<boolean>(isFavoriteHost);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const supabase = createClientComponentClient<Database>();
 
   const { alias, name, img } = data;
 
+  useEffect(() => {
+    const getIsFavorite = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        return;
+      }
+      const { data: like, error } = await supabase
+      .from('showLikes')
+      .select()
+      .eq("user_id", user.id)
+      .eq('show_alias', alias);
+
+    if (error) {
+      console.log(error);
+    }
+    setIsFavorite(Array.isArray(like) ? !!like[0] : !!like);
+     
+    };
+
+    getIsFavorite();
+  }, [supabase, setIsFavorite, data]);
+
   const handleFavorite = async () => {
-    const supabase = createClientComponentClient<Database>();
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -40,13 +62,13 @@ const FavoriteShowAction: React.FC<FavoriteShowActionProps> = ({
       return;
     }
     // Delete like if exist
-    if (isFavoriteHost) {
+    if (isFavorite) {
       setIsFavorite(false);
       const { error } = await supabase
         .from("showLikes")
         .delete()
         .eq("user_id", user.id)
-        .eq("alias", alias);
+        .eq("show_alias", alias);
 
       if (error) {
         setIsFavorite(true);

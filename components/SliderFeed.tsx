@@ -35,7 +35,7 @@ const SliderFeed: React.FC<SliderFeedProps> = ({ data, library }) => {
       key: index,
       children: (
         <BearSlideCard key={index} className={twMerge(index === 0 && "lg:pl-7")}>
-          <EpisodeItem data={episode} />
+          <EpisodeItem episodeData={episode} />
         </BearSlideCard>
       ),
     };

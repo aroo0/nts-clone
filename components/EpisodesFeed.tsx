@@ -51,13 +51,13 @@ const EpisodesFeed: React.FC<EpisodesFeedProps> = ({ initData, apiPath }) => {
         if (index === allData.length - 1) {
           return (
             <li ref={ref} key={index}>
-              <EpisodeItem data={episode} />
+              <EpisodeItem episodeData={episode} />
             </li>
           );
         } else {
           return (
             <li key={index}>
-              <EpisodeItem data={episode} />
+              <EpisodeItem episodeData={episode} />
             </li>
           );
         }

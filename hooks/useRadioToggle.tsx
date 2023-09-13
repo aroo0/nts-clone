@@ -1,7 +1,6 @@
 import { STATION1_STREAM_URL, STATION2_STREAM_URL } from "@/const/api";
 import usePlayer from "@/stores/usePlayer";
 import { toggleRadioParams } from "@/types/general";
-import axios from "axios";
 // @ts-ignore
 import { Howl } from "howler";
 
