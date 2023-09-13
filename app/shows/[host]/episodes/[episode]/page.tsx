@@ -48,7 +48,7 @@ const EpisodePage: React.FC<EpisodePageProps> = async ({
               showData={{
                 showAlias: showData.show_alias,
                 showName: showData.name,
-                showImage: showData.media.background_thumb,
+                showImage: showData.media.background_medium,
               }}
             />
 
@@ -83,7 +83,7 @@ const EpisodePage: React.FC<EpisodePageProps> = async ({
                 classToSent="h-7 w-7"
                 data={{
                   alias: episodeData.episode_alias,
-                  img: episodeData.media.background_small,
+                  img: episodeData.media.background_medium,
                   name: episodeData.name,
                   date: episodeDate,
                   showAlias: episodeData.show_alias,
@@ -94,7 +94,7 @@ const EpisodePage: React.FC<EpisodePageProps> = async ({
                 data={{
                   alias: episodeData.show_alias,
                   name: showData.name,
-                  img: showData.media.background_thumb,
+                  img: showData.media.background_medium,
                 }}
               />
               <CopyLinkAction classToSent="h-6 w-6" />

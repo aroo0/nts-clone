@@ -7,14 +7,14 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_PATH, API_URL } from "@/const/api";
 import toast from "react-hot-toast";
-import EpisodeItemSkleleton from "./Skeletons/EpisodeItemSkleleton";
+import EpisodeItemSkleleton from "./skeletons/EpisodeItemSkleleton";
 
 interface EpisodeItemProps {
   episodeData: Episode;
 }
 
 const EpisodeItem: React.FC<EpisodeItemProps> = ({ episodeData }) => {
-  const apiPath = `${API_URL}/${API_PATH.SHOWS}/${episodeData.show_alias}`
+  const apiPath = `${API_URL}/${API_PATH.SHOWS}/${episodeData.show_alias}`;
   const { data: showData, isLoading } = useQuery({
     queryKey: [`${episodeData.show_alias}`],
     queryFn: async () => {
@@ -27,7 +27,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ episodeData }) => {
   });
 
   if (!showData || isLoading) {
-    return <EpisodeItemSkleleton />
+    return <EpisodeItemSkleleton />;
   }
 
   return (
@@ -45,7 +45,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ episodeData }) => {
           showData={{
             showAlias: showData.show_alias,
             showName: showData.name,
-            showImage: showData.media.background_thumb,
+            showImage: showData.media.background_medium,
           }}
         />
       </div>

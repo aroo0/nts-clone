@@ -11,17 +11,20 @@ export interface Database {
     Tables: {
       episodeLikes: {
         Row: {
-          episode_alias: string | null
+          date: string
+          episode_alias: string
           id: string
           user_id: string
         }
         Insert: {
-          episode_alias?: string | null
+          date?: string
+          episode_alias: string
           id?: string
           user_id?: string
         }
         Update: {
-          episode_alias?: string | null
+          date?: string
+          episode_alias?: string
           id?: string
           user_id?: string
         }
@@ -43,33 +46,26 @@ export interface Database {
       episodes: {
         Row: {
           alias: string
-          date: string | null
-          img: string | null
-          name: string | null
-          show_alias: string | null
+          date: string
+          img: string
+          name: string
+          show_alias: string
         }
         Insert: {
           alias: string
-          date?: string | null
-          img?: string | null
-          name?: string | null
-          show_alias?: string | null
+          date: string
+          img: string
+          name: string
+          show_alias: string
         }
         Update: {
           alias?: string
-          date?: string | null
-          img?: string | null
-          name?: string | null
-          show_alias?: string | null
+          date?: string
+          img?: string
+          name?: string
+          show_alias?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "episodes_show_alias_fkey"
-            columns: ["show_alias"]
-            referencedRelation: "shows"
-            referencedColumns: ["alias"]
-          }
-        ]
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -95,18 +91,21 @@ export interface Database {
       }
       showLikes: {
         Row: {
+          date: string
           id: string
-          show_alias: string | null
+          show_alias: string
           user_id: string
         }
         Insert: {
+          date?: string
           id?: string
-          show_alias?: string | null
+          show_alias: string
           user_id?: string
         }
         Update: {
+          date?: string
           id?: string
-          show_alias?: string | null
+          show_alias?: string
           user_id?: string
         }
         Relationships: [
@@ -127,17 +126,17 @@ export interface Database {
       shows: {
         Row: {
           alias: string
-          img: string | null
+          img: string
           name: string
         }
         Insert: {
           alias: string
-          img?: string | null
+          img: string
           name: string
         }
         Update: {
           alias?: string
-          img?: string | null
+          img?: string
           name?: string
         }
         Relationships: []

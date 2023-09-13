@@ -9,7 +9,7 @@ import ExploreEpisodeItem from "./ExploreEpisodeItem";
 import ExploreFeed from "./ExploreFeed";
 import { searchQueryInterface } from "../types";
 import queryString from "query-string";
-import EpisodeItemSkleleton from "@/components/Skeletons/EpisodeItemSkleleton";
+import EpisodeItemSkleleton from "@/components/skeletons/EpisodeItemSkleleton";
 
 export const revalidate = 0;
 

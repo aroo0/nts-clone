@@ -1,31 +1,24 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import getMyLikes from "@/actions/getMyLikes";
+import MyNtsNav from "../../components/MyNtsNav";
+import MyShowItem from "../../components/MyShowItem";
 
-interface pageProps {}
-
-const Page: React.FC<pageProps> = async ({}) => {
-  const supabase = createServerComponentClient<Database>({ cookies });
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  let { data: profiles, error } = await supabase
-    .from("profiles")
-    .select("email");
+const FavoriteHosts = async () => {
+  const favouriteShows: ShowLikeWithShow[] = await getMyLikes(
+    "showLikes",
+    "Shows",
+  );
 
   return (
-    <div>
-      <div>Shows</div>
-      {user && profiles?.map(profile => (<p>{profile.email}</p>))}
-
-      <form action="../../auth/sign-out" method="post">
-      <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-        Logout
-      </button>
-    </form>
-
-    </div>
+    <MyNtsNav>
+      <ul className="grid gap-4">
+        {favouriteShows.map((show) => (
+          <li className="border-b border-neutral-500 pb-4" key={show.id}>
+            <MyShowItem showData={show} />
+          </li>
+        ))}
+      </ul>
+    </MyNtsNav>
   );
 };
 
-export default Page;
+export default FavoriteHosts;
