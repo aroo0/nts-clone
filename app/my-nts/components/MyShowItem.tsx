@@ -1,4 +1,4 @@
-import RemoveFavHostButton from "@/app/find/components/RemoveButton";
+import RemoveButton from "@/app/my-nts/components/RemoveButton";
 import CopyLinkAction from "@/components/CopyLinkAction";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,7 +29,7 @@ const MyShowItem: React.FC<MyShowItemProps> = ({ showData }) => {
           </h2>
         </Link>
         <div className="ml-auto flex gap-4 self-end">
-          <RemoveFavHostButton  alias={showData.show_alias} variant="HOST"  />
+          <RemoveButton alias={showData.show_alias} variant="HOST" />
           <CopyLinkAction classToSent="w-4 h-4" />
         </div>
       </div>

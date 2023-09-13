@@ -1,10 +1,11 @@
-import RemoveFavHostButton from "@/app/find/components/RemoveButton";
+import RemoveButton from "@/app/my-nts/components/RemoveButton";
+import RemoveFavHostButton from "@/app/my-nts/components/RemoveButton";
 import CopyLinkAction from "@/components/CopyLinkAction";
 import Image from "next/image";
 import Link from "next/link";
 
 interface MyEpisodeItemProps {
-  episodeData: EpisodeLikeWithEpisode
+  episodeData: EpisodeLikeWithEpisode;
 }
 
 const MyEpisodeItem: React.FC<MyEpisodeItemProps> = ({ episodeData }) => {
@@ -22,17 +23,28 @@ const MyEpisodeItem: React.FC<MyEpisodeItemProps> = ({ episodeData }) => {
           className="h-full w-full object-cover "
         />
       </Link>
-      <div className="mb-1 flex flex-col sm:flex-row flex-1 justify-between gap-4">
-        <Link href={`/shows/${episodeData.episode_alias}`} className="flex gap-0 flex-col hover:opacity-80 transition ">
+      <div className="mb-1 flex flex-1 flex-col justify-between gap-4 sm:flex-row">
+        <Link
+          href={`/shows/${episodeData.episode_alias}`}
+          className="flex flex-col gap-0 transition hover:opacity-80 "
+        >
           <h2 className="font-extrabold uppercase leading-tight	">
             {episodeData.episodes.name}
           </h2>
           <span className="text-xs">{episodeData.episodes.date}</span>
         </Link>
         <div className="ml-auto flex gap-4 self-end">
-          <RemoveFavHostButton  alias={episodeData.episode_alias} variant="EPISODE"  />
+          <RemoveButton
+            alias={episodeData.episode_alias}
+            variant="EPISODE"
+          />
           <CopyLinkAction classToSent="w-4 h-4" />
-          <Link href={`/shows/${episodeData.episodes.show_alias}`} className="uppercase font-extrabold  text-sm whitespace-nowrap ">Find more</Link>
+          <Link
+            href={`/shows/${episodeData.episodes.show_alias}`}
+            className="whitespace-nowrap text-sm  font-extrabold uppercase "
+          >
+            Find more
+          </Link>
         </div>
       </div>
     </div>

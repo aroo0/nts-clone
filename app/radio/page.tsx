@@ -73,7 +73,7 @@ const NtsPicks = async () => {
             >
               <Link
                 className="flex-grow p-5 text-center text-sm font-extrabold uppercase"
-                href={`/explore?genre=${alias}`}
+                href={`/explore?genres=${alias}`}
               >
                 {name}
               </Link>
