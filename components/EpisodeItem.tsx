@@ -14,10 +14,10 @@ interface EpisodeItemProps {
 }
 
 const EpisodeItem: React.FC<EpisodeItemProps> = ({ episodeData }) => {
-  const apiPath = `${API_URL}/${API_PATH.SHOWS}/${episodeData.show_alias}`;
   const { data: showData, isLoading } = useQuery({
     queryKey: [`${episodeData.show_alias}`],
     queryFn: async () => {
+      const apiPath = `${API_URL}/${API_PATH.SHOWS}/${episodeData.show_alias}`;
       const { data } = await axios.get(apiPath);
       return data as Show;
     },

@@ -1,6 +1,6 @@
 "use client";
 import { Episode } from "@/types/shows";
-import EpisodeItem from "./EpisodeItem";
+import EpisodeItem from "@/components/EpisodeItem";
 import {
   elClassName,
   TBearSlideItemDataList,
@@ -9,7 +9,7 @@ import {
 } from "bear-react-carousel";
 import "bear-react-carousel/dist/index.css";
 import styled from "styled-components";
-import { PhCaretLeftBold, PhCaretRightBold } from "./Icons";
+import { PhCaretLeftBold, PhCaretRightBold } from "@/components/Icons";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import dynamic from "next/dynamic";

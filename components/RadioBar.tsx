@@ -12,7 +12,7 @@ import { API_PATH, API_URL } from "@/const/api";
 import useRadioToggle from "@/hooks/useRadioToggle";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import * as Collapsible from "@radix-ui/react-collapsible";
-import Slider from "./Slider";
+import Slider from "./VolumeSlider";
 import { toast } from "react-hot-toast";
 import {
   IonVolumeHighSharp,

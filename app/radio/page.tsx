@@ -1,6 +1,6 @@
 import EpisodesFeed from "@/components/EpisodesFeed";
 import { PhCaretRightBold } from "@/components/Icons";
-import SliderFeed from "@/components/SliderFeed";
+import SliderFeed from "./components/SliderFeed";
 import { API_PATH, API_URL } from "@/const/api";
 import { shortGenreList } from "@/const/genres";
 import { Episode } from "@/types/shows";
