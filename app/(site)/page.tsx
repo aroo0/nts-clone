@@ -1,11 +1,10 @@
 import { API_PATH, API_URL } from "@/const/api";
-import useLogo from "@/hooks/useLogo";
 import { Episode } from "@/types/shows";
 import axios from "axios";
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import SliderEpisodeItem from "./components/SliderEpisodeItem";
 import LandingPageCarousel from "./components/LandingPageCarousel";
+import { MixtapeList } from "@/types/mixtapes";
+import LandingPageMixtapeList from "./components/LandingPageMixtapeList";
 
 export default async function Home() {
   const getInitNtsPicks = async () => {
@@ -18,19 +17,30 @@ export default async function Home() {
     }
   };
 
-  const initData = await getInitNtsPicks();
+  const getMixtapes = async () => {
+    try {
+      const { data } = await axios.get(`${API_URL}/${API_PATH.MIXTAPES}`);
+      return data as MixtapeList;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  if (!initData) {
+  const mixtapeList = await getMixtapes();
+
+  const ntsPicks = await getInitNtsPicks();
+
+  if (!ntsPicks || !mixtapeList) {
     return notFound();
   }
-
 
   return (
     <div className="">
       <div className="h-[calc(100vh-79px)] w-[80%] bg-red-400">
-        <LandingPageCarousel initData={initData} />
-
-
+        <LandingPageCarousel initData={ntsPicks} />
+      </div>
+      <div className="h-[calc(100vh-79px)] w-[600px]">
+        <LandingPageMixtapeList mixtapeList={mixtapeList} />
       </div>
     </div>
   );

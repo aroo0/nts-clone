@@ -17,8 +17,6 @@ import {
   PhStopFill,
 } from "@/components/Icons";
 import { useState } from "react";
-import styled from "styled-components";
-import usePrevious from "@/hooks/usePrevious";
 import { twMerge } from "tailwind-merge";
 import { Episode } from "@/types/shows";
 import SliderEpisodeItem from "./SliderEpisodeItem";
@@ -123,8 +121,5 @@ const LandingPageCarousel: React.FC<LandingPageCarouselProps> = ({initData}) => 
   );
 };
 
-const CustomPage = styled.div`
-  padding: 10px 20px;
-`;
 
 export default LandingPageCarousel;
