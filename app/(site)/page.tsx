@@ -52,7 +52,7 @@ export default async function Home() {
         <LandingPageCarousel initData={ntsPicks} />
         <LandingPageMixtapeList mixtapeList={mixtapeList} />
       </div>
-      <div className="border-b border-white">
+      <div className="mb-8 border-b border-white">
         <div className="my-3 flex flex-col pb-4 lg:my-10 ">
           <SliderFeed
             data={latestData}

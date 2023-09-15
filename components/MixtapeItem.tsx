@@ -50,7 +50,7 @@ const MixtapeItem: React.FC<MixtapeItemProps> = ({ data }) => {
                   src={data.media.icon_white}
                   alt="Mixtape icon"
                   fill
-                  className=""
+                  sizes="50px 50px"
                 />
               </div>
               <h2 className="z-[3] text-base font-extrabold uppercase sm:text-lg xl:text-xl ">

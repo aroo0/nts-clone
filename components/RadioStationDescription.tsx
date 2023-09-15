@@ -3,11 +3,10 @@ import { ChannelStation } from "@/types/shows";
 import { twMerge } from "tailwind-merge";
 import { useFormattedTimeRange } from "@/lib/utils";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import usePlayer from "@/stores/usePlayer";
 import { toggleRadioParams } from "@/types/general";
-import { PhCaretRightBold, PhPlayFill, PhStopFill } from "./Icons";
+import { PhPlayFill, PhStopFill } from "./Icons";
 
 interface RadioStationDescriptionProps {
   station?: ChannelStation;
@@ -152,13 +151,10 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
       </div>
 
       <div className="hidden border-y border-white lg:flex">
-        <div className="border-r border-white ">
-          <Link href={"/"} className="flex items-center gap-2 p-3 ">
-            <span className=" whitespace-nowrap text-sm font-extrabold uppercase	">
-              Next on{" "}
-            </span>
-            <PhCaretRightBold className="h-3 w-3" />
-          </Link>
+        <div className="flex items-center gap-2 border-r border-white p-3 ">
+          <span className=" whitespace-nowrap text-sm font-extrabold uppercase	">
+            Next on
+          </span>
         </div>
         <div className="flex items-center gap-2 p-3">
           <div className="whitespace-nowrap pl-2 text-sm	">

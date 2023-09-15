@@ -18,7 +18,7 @@ const MyEpisodeItem: React.FC<MyEpisodeItemProps> = ({ episodeData }) => {
         <Image
           src={episodeData.episodes.img!}
           width={200}
-          height={100}
+          height={200}
           alt={episodeData.episodes.name}
           className="h-full w-full object-cover "
         />

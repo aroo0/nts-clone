@@ -52,6 +52,7 @@ const LandingPageMixtapeItem: React.FC<LandingPageMixtapeItemProps> = ({
                   src={data.media.icon_white}
                   alt="Mixtape icon"
                   fill
+                  sizes="50px 50px"
                   className=""
                 />
               </div>

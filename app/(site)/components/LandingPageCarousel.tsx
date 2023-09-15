@@ -46,7 +46,7 @@ const LandingPageCarousel: React.FC<LandingPageCarouselProps> = ({
   });
 
   return (
-    <div className="relative h-[60vh] lg:h-full placeholder:md:h-full lg:2xl:w-[80%]">
+    <div className="relative h-[60vh] lg:h-full placeholder:md:h-full lg:2xl:w-[80%] mr-4 bg-black">
       <BearCarousel
         // @ts-ignore
         slidesPerView={1}
