@@ -35,7 +35,7 @@ export default async function RootLayout({
           <ToasterProvider />
           <Header />
 
-          <main className="box-border h-full w-full  pt-[110px] lg:pt-[78px]">
+          <main className="box-border w-full  h-full pt-[110px] lg:pt-[78px] pb-4">
             {children}
           </main>
 

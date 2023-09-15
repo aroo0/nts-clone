@@ -8,7 +8,7 @@ import {
 import { twMerge } from "tailwind-merge";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface SaveEpisodeActionProps {
   classToSent?: string;
@@ -30,7 +30,7 @@ const SaveEpisodeAction: React.FC<SaveEpisodeActionProps> = ({
   const { alias, img, name, date, showAlias } = data;
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
-
+  const pathname = usePathname()
 
   useEffect(() => {
     const getIsLiked = async () => {
@@ -63,7 +63,7 @@ const SaveEpisodeAction: React.FC<SaveEpisodeActionProps> = ({
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) {
-      return;
+      return router.push(`/sign-in?continue=${pathname}`);
     }
     // Delete like if exist
     if (isLiked) {

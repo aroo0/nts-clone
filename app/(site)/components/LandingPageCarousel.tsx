@@ -21,7 +21,6 @@ import { twMerge } from "tailwind-merge";
 import { Episode } from "@/types/shows";
 import SliderEpisodeItem from "./SliderEpisodeItem";
 
-
 const BearCarousel = dynamic(
   // @ts-ignore
   () => import("bear-react-carousel").then((mod) => mod),
@@ -29,10 +28,12 @@ const BearCarousel = dynamic(
 );
 
 interface LandingPageCarouselProps {
-  initData: Episode[]
+  initData: Episode[];
 }
 
-const LandingPageCarousel: React.FC<LandingPageCarouselProps> = ({initData}) => {
+const LandingPageCarousel: React.FC<LandingPageCarouselProps> = ({
+  initData,
+}) => {
   const [isAutoPlay, setIsAutoPlay] = useState<boolean>(true);
   const [controller, setController] = useState<Controller>();
   const [carouselState, setCarouselState] = useState<ICarouselState>();
@@ -40,15 +41,12 @@ const LandingPageCarousel: React.FC<LandingPageCarouselProps> = ({initData}) => 
   const bearSlideItemData: TBearSlideItemDataList = initData.map((episode) => {
     return {
       key: episode.episode_alias,
-      children: (
-        <SliderEpisodeItem episodeData={episode} />
-      ),
+      children: <SliderEpisodeItem episodeData={episode} />,
     };
   });
 
-
   return (
-    <div className="h-full w-full relative">
+    <div className="relative h-[60vh] lg:h-full placeholder:md:h-full lg:2xl:w-[80%]">
       <BearCarousel
         // @ts-ignore
         slidesPerView={1}
@@ -56,17 +54,18 @@ const LandingPageCarousel: React.FC<LandingPageCarouselProps> = ({initData}) => 
         data={bearSlideItemData}
         height="w-full"
         isEnableNavButton
-        isEnableMouseMove={false}
+        isEnableMouseMove
         className="relative"
         isEnableAutoPlay={isAutoPlay}
         isEnableLoop
         autoPlayTime={4000}
         onSlideChange={setCarouselState}
         setController={setController}
+        breakpoints={{}}
         // @ts-ignore
         renderNavButton={(toPrev, toNext) => {
           return (
-            <div className="absolute bottom-16 right-12 z-[10] flex gap-2 ">
+            <div className=" absolute bottom-16 right-12 z-[10] hidden gap-2 lg:flex ">
               <button
                 type="button"
                 className="text-white transition hover:text-neutral-400"
@@ -101,13 +100,13 @@ const LandingPageCarousel: React.FC<LandingPageCarouselProps> = ({initData}) => 
           );
         }}
       />
-      <div className="absolute bottom-14 left-6 flex items-center gap-2 z-[10]">
-        <div className="flex ">
+      <div className="absolute bottom-10 z-[10] flex w-full mx-6 items-center gap-4">
+        <div className="flex w-[60%]">
           {Array.from({ length: 12 }).map((_, index) => (
             <span
               key={index}
               className={twMerge(
-                `h-[2px] w-[calc(600px/12)] bg-neutral-500 transition`,
+                `h-[2px] w-[calc(100%/12)] bg-neutral-500 transition`,
                 index === carouselState?.page.activePage - 1 && "bg-white",
               )}
             />
@@ -120,6 +119,5 @@ const LandingPageCarousel: React.FC<LandingPageCarouselProps> = ({initData}) => 
     </div>
   );
 };
-
 
 export default LandingPageCarousel;

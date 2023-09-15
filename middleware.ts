@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
     return res;
   }
 
-  // Auth condition not met, redirect to home page.
+  // Auth condition not met, redirect to sign-in.
   const redirectUrl = req.nextUrl.clone();
   redirectUrl.pathname = "/sign-in";
   redirectUrl.searchParams.set(`continue`, req.nextUrl.pathname);

@@ -23,18 +23,18 @@ const SliderEpisodeItem: React.FC<SliderEpisodeItemProps> = ({
             alt={episodeData.name}
             className="h-full w-full object-cover  "
           />
-          <div className="absolute inset-x-0 bottom-0 h-[30%] w-full bg-gradient-to-t from-black  to-transparent opacity-80" />
+          <div className="absolute inset-x-0 bottom-0 h-[30%] w-full bg-gradient-to-t from-black  to-transparent " />
         </div>
-        <div className="absolute bottom-20 left-6 grid w-[360px] place-items-start gap-2	">
+        <div className="absolute bottom-20 grid max-w-[360px] place-items-start gap-2 mx-5	">
           <div className="aspect-square bg-white p-2 text-black">
             <PhPlayFill className="ml-[-4px] h-8 w-8" />
           </div>
           <div className="grid w-full gap-2 bg-black p-2 pb-4 pr-4 text-white">
-            <div className="">
-              <h3 className="line-clamp-2 text-xl font-extrabold uppercase">
+            <div >
+              <h3 className="line-clamp-2 lg:text-xl font-extrabold uppercase">
                 {episodeData.name}
               </h3>
-              <ul className="flex  text-xs uppercase text-neutral-400">
+              <ul className="flex text-xs uppercase text-neutral-400 line-clamp-1">
                 {episodeData.genres.slice(0, 3).map((genre) => (
                   <li
                     key={genre.id}

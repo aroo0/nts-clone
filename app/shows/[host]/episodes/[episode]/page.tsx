@@ -28,7 +28,6 @@ const EpisodePage: React.FC<EpisodePageProps> = async ({
 
   const episodeDate = useDate(episodeData.updated);
 
-
   return (
     <div className="w-full lg:relative lg:min-h-full lg:pt-[78px]">
       <div className="top-[78px] h-full w-full lg:fixed ">

@@ -24,7 +24,7 @@ interface SliderFeedProps {
   data: Episode[];
   library: {
     title: string;
-    subtitle: string;
+    subtitle?: string;
     alias: string;
   };
 }
@@ -34,7 +34,10 @@ const SliderFeed: React.FC<SliderFeedProps> = ({ data, library }) => {
     return {
       key: index,
       children: (
-        <BearSlideCard key={index} className={twMerge(index === 0 && "lg:pl-7")}>
+        <BearSlideCard
+          key={index}
+          className={twMerge(index === 0 && "lg:pl-7")}
+        >
           <EpisodeItem episodeData={episode} />
         </BearSlideCard>
       ),
@@ -61,7 +64,7 @@ const SliderFeed: React.FC<SliderFeedProps> = ({ data, library }) => {
 
   return (
     <div>
-      <div className="my-3 flex flex-col gap-1  pb-4 px-4 lg:px-10 lg:mt-3">
+      <div className="my-3 flex flex-col gap-1  px-4 pb-4 lg:mt-3 lg:px-10">
         <div className="flex items-end gap-4">
           <h1 className="text-xl font-extrabold uppercase">{library.title}</h1>
           <Link
@@ -72,7 +75,7 @@ const SliderFeed: React.FC<SliderFeedProps> = ({ data, library }) => {
             <PhCaretRightBold className="h-3 w-3" />
           </Link>
         </div>
-        <p className="text-sm">{library.subtitle}</p>
+        {library.subtitle && <p className="text-sm">{library.subtitle}</p>}
       </div>
       <BearCarousel
         // @ts-ignore

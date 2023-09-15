@@ -46,7 +46,7 @@ const EpisodeRadio = () => {
             <span className="line-clamp-1 text-sm  font-extrabold uppercase leading-4">
               {activePlayer.info?.name}
             </span>
-            <span className="line-clamp-1 text-xs">Play on Soundcloud</span>
+            <span className="line-clamp-1 text-xs">Play on Soundcloud. Soundcloud API is not longer widely open. {";{"}</span>
           </Link>
           <Link href="https://soundcloud.com" target="_blank">
             <Image

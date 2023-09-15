@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import {
-  PhBookmarkSimpleLight,
   PhHeartStraightFill,
   PhHeartStraightLight,
 } from "./Icons";
 import { twMerge } from "tailwind-merge";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+
 
 interface FavoriteShowActionProps {
   classToSent?: string;
@@ -27,6 +27,7 @@ const FavoriteShowAction: React.FC<FavoriteShowActionProps> = ({
   const router = useRouter();
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const supabase = createClientComponentClient<Database>();
+  const pathname = usePathname()
 
   const { alias, name, img } = data;
 
@@ -59,7 +60,7 @@ const FavoriteShowAction: React.FC<FavoriteShowActionProps> = ({
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) {
-      return;
+      return router.push(`/sign-in?continue=${pathname}`)
     }
     // Delete like if exist
     if (isFavorite) {

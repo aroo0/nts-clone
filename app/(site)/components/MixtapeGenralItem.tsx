@@ -28,11 +28,11 @@ const MixtapeGenralItem: React.FC<MixtapeGenralItemProps> = ({mixtapeList}) => {
   return (
     <Link href="/infinite-mixtapes" className="row-span-2">
       <div
-        className=" group relative flex flex-col w-full h-full gap-2 border-l border-t border-neutral-700 p-3	py-4"
+        className=" group relative flex flex-col w-full h-full gap-2 border-l border-t border-neutral-600 p-2 lg:p-3	lg:py-4"
         onMouseOver={handleVideoMouseOver}
         onMouseOut={handleVideoMouseOut}
       >
-        <div className="absolute  inset-0  z-[-1] m-auto h-[96%] w-[95%] opacity-60  transition group-hover:opacity-30">
+        <div className=" hidden lg:block absolute inset-0  z-[-1] m-auto h-[96%] w-[95%] opacity-60  transition group-hover:opacity-30">
           <video
             src="https://media.ntslive.co.uk/static/nts_im_heading_tile_video-374x734-30fps-ea81412f7a5d2d4734c56827fcd71610.mp4"
             loop

@@ -1,6 +1,6 @@
 import EpisodesFeed from "@/components/EpisodesFeed";
 import { PhCaretRightBold } from "@/components/Icons";
-import SliderFeed from "./components/SliderFeed";
+import SliderFeed from "../../components/SliderFeed";
 import { API_PATH, API_URL } from "@/const/api";
 import { shortGenreList } from "@/const/genres";
 import { Episode } from "@/types/shows";
@@ -30,7 +30,7 @@ const NtsPicks = async () => {
   };
 
   return (
-    <div className="pb-20 pt-8">
+    <div className=" pt-8">
       <div className="px-4 lg:mx-6 ">
         <div className="my-3 flex flex-col gap-2 border-b border-neutral-600 pb-4 lg:mt-3">
           <h1 className="text-2xl font-extrabold uppercase">Radio</h1>
