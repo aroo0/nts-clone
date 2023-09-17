@@ -17,6 +17,7 @@ import {
   PhPlusBold,
   PhStopFill,
 } from "@/components/Icons";
+import Spiner from "@/components/Spiner";
 
 interface MixTapePageItemProps {
   params: {
@@ -168,8 +169,12 @@ const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
           }}
         >
           {isPlaying ? (
-            <PhStopFill className="h-[100px] w-[100px] fill-white" />
-          ) : (
+              activePlayer.isLoadingAudio === "unloaded" ? (
+                <Spiner size="h-[100px] w-[100px]" color="text-white" />
+              ) : (
+                <PhStopFill className="h-[100px] w-[100px] " />
+              )
+            )  : (
             <PhPlayFill className="h-[100px] w-[100px] fill-white" />
           )}
         </button>

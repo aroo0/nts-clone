@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import usePlayer from "@/stores/usePlayer";
 import { toggleRadioParams } from "@/types/general";
 import { PhPlayFill, PhStopFill } from "./Icons";
+import Spiner from "./Spiner";
 
 interface RadioStationDescriptionProps {
   station?: ChannelStation;
@@ -118,7 +119,14 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
               )}
             >
               {isPlaying ? (
-                <PhStopFill className=" h-7 w-7 lg:h-16 lg:w-16" />
+                activePlayer.isLoadingAudio === "unloaded" ? (
+                  <Spiner
+                    size="h-7 w-7 lg:h-16 lg:w-16"
+                    color="text-neutral-300"
+                  />
+                ) : (
+                  <PhStopFill className=" h-7 w-7 lg:h-16 lg:w-16" />
+                )
               ) : (
                 <PhPlayFill className=" h-7 w-7 lg:h-16 lg:w-16" />
               )}

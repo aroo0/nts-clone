@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Mixtape } from "@/types/mixtapes";
 import Image from "next/image";
@@ -7,6 +7,7 @@ import { PhCaretRightBold, PhPlayFill, PhStopFill } from "./Icons";
 import { useEffect, useState } from "react";
 import useRadioToggle from "@/hooks/useRadioToggle";
 import usePlayer from "@/stores/usePlayer";
+import Spiner from "./Spiner";
 
 interface MixtapeItemProps {
   data: Mixtape;
@@ -28,7 +29,6 @@ const MixtapeItem: React.FC<MixtapeItemProps> = ({ data }) => {
       setIsPlaying(false);
     }
   }, [activePlayer, data]);
-
 
   return (
     <article className="group relative flex items-center gap-6 border-b border-neutral-600 p-2  lg:gap-0 lg:odd:border-l lg:odd:border-r lg:even:border-r">
@@ -81,7 +81,11 @@ const MixtapeItem: React.FC<MixtapeItemProps> = ({ data }) => {
         }}
       >
         {isPlaying ? (
-          <PhStopFill className="h-10 w-10 fill-white lg:h-14 lg:w-14" />
+          activePlayer.isLoadingAudio === "unloaded" ? (
+            <Spiner size="h-8 w-8 lg:h-12 lg:w-12" color="text-white" />
+          ) : (
+            <PhStopFill className="h-10 w-10 fill-white lg:h-14 lg:w-14" />
+          )
         ) : (
           <PhPlayFill className="h-10 w-10 fill-white lg:h-14 lg:w-14" />
         )}

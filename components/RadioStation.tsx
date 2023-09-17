@@ -1,12 +1,15 @@
 "use client";
 
-import { ChannelStation} from "@/types/shows";
+import { ChannelStation } from "@/types/shows";
 import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 import usePlayer from "@/stores/usePlayer";
 import { useEffect, useState } from "react";
 import { toggleRadioParams } from "@/types/general";
 import { PhPlayFill, PhStopFill } from "./Icons";
+import Spiner from "./Spiner";
+import { useRouter } from "next/navigation";
+import useAudioLoadingState from "@/hooks/useLoading";
 
 interface RadioStationProps {
   station?: ChannelStation;
@@ -23,8 +26,8 @@ const RadioStation: React.FC<RadioStationProps> = ({
   radioDescOpen,
   toggleRadio,
 }) => {
-  const { activePlayer } = usePlayer();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { activePlayer, activeHowl } = usePlayer();
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   useEffect(() => {
     if (activePlayer?.stationName === stationName) {
@@ -33,6 +36,8 @@ const RadioStation: React.FC<RadioStationProps> = ({
       setIsPlaying(false);
     }
   }, [activePlayer]);
+
+  const isLoadingAudio = useAudioLoadingState();
 
   const detailsInfo = station?.now.embeds.details;
 
@@ -56,7 +61,11 @@ const RadioStation: React.FC<RadioStationProps> = ({
       </div>
 
       {isPlaying ? (
-        <PhStopFill className="text-black" />
+        activePlayer.isLoadingAudio === "unloaded" ? (
+          <Spiner size="w-3.5 h-3.5" color="text-gray-400" />
+        ) : (
+          <PhStopFill className="text-black" />
+        )
       ) : (
         <PhPlayFill
           className={twMerge(isLoading && "animate-pulse text-neutral-500")}

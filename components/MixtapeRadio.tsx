@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { PhPlayFill, PhStopFill, PhXBold } from "./Icons";
 import { twMerge } from "tailwind-merge";
 import useRadioToggle from "@/hooks/useRadioToggle";
+import Spiner from "./Spiner";
 
 const MixtapeRadio = () => {
   const { activePlayer } = usePlayer();
@@ -59,7 +60,11 @@ const MixtapeRadio = () => {
             onClick={() => togglePause()}
           >
             {isPlaying ? (
-              <PhStopFill className="h-[25px] w-[25px] fill-white" />
+              activePlayer.isLoadingAudio === "unloaded" ? (
+                <Spiner size="h-[22px] w-[22px]" color="text-white" />
+              ) : (
+                <PhStopFill className="h-10 w-10 fill-white lg:h-14 lg:w-14" />
+              )
             ) : (
               <PhPlayFill className="h-[25px] w-[25px] fill-white" />
             )}

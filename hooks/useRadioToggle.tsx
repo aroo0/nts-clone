@@ -52,7 +52,6 @@ function useRadioToggle() {
     stationName,
     type,
     source,
-    sourceType,
     info,
   }: toggleRadioParams) => {
 

@@ -75,7 +75,7 @@ const FavoriteShowAction: React.FC<FavoriteShowActionProps> = ({
         setIsFavorite(true);
         toast.error("Something went wrong. Try again later.");
       } else {
-        router.refresh();
+        router.refresh()
       }
       return;
     }

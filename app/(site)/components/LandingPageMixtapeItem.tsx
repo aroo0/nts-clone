@@ -7,6 +7,7 @@ import { PhCaretRightBold, PhPlayFill, PhStopFill } from "@/components/Icons";
 import { useEffect, useState } from "react";
 import useRadioToggle from "@/hooks/useRadioToggle";
 import usePlayer from "@/stores/usePlayer";
+import Spiner from "@/components/Spiner";
 
 interface LandingPageMixtapeItemProps {
   data: Mixtape;
@@ -83,8 +84,12 @@ const LandingPageMixtapeItem: React.FC<LandingPageMixtapeItemProps> = ({
         }}
       >
         {isPlaying ? (
-          <PhStopFill className="h-6 w-6 fill-white lg:h-4 lg:w-4 " />
+        activePlayer.isLoadingAudio === "unloaded" ? (
+          <Spiner size="h-6 w-6 fill-white lg:h-4 lg:w-4" color="text-white" />
         ) : (
+          <PhStopFill className="h-6 w-6 fill-white lg:h-4 lg:w-4" />
+        )
+      ) : (
           <PhPlayFill className="h-6 w-6 fill-white lg:h-4 lg:w-4 " />
         )}
       </button>

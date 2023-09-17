@@ -8,6 +8,7 @@ interface activePlayer {
   type: "radio" | "mixtape" | "episode" | undefined;
   info?: activePlayerInfo;
   pause?: boolean;
+  isLoadingAudio?: string;
 }
 
 interface PlayerStore {
@@ -18,6 +19,7 @@ interface PlayerStore {
   setPlaylist: (ids: string[]) => void;
   setActiveHowl: (howl: Howl) => void;
   setPause: (pause: boolean) => void;
+  setIsLoadingAudio: (isLoading: string) => void;
   reset: () => void;
 }
 
@@ -28,6 +30,7 @@ const usePlayer = create<PlayerStore>((set) => ({
     type: undefined,
     info: undefined,
     pause: false,
+    isLoadingAudio: 'unloaded',
   },
   activeHowl: undefined,
   setActivePlayer: (player) =>
@@ -37,8 +40,17 @@ const usePlayer = create<PlayerStore>((set) => ({
         type: player.type,
         info: player.info,
         pause: false,
+        isLoadingAudio: 'unloaded',
       },
     }),
+  setIsLoadingAudio: (isLoading) =>
+    set((state) => ({
+      activePlayer: {
+        ...state.activePlayer,
+        isLoadingAudio: isLoading,
+      },
+    })),
+
   setPause: (pause) =>
     set((state) => ({
       activePlayer: {
@@ -56,6 +68,7 @@ const usePlayer = create<PlayerStore>((set) => ({
         type: undefined,
         info: undefined,
         pause: false,
+        isLoadingAudio: 'unloaded',
       },
       activeHowl: undefined,
     }),
