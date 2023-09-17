@@ -1,5 +1,5 @@
 import usePlayer from "@/stores/usePlayer";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function useAudioLoadingState() {
   const { activeHowl, setIsLoadingAudio, activePlayer } = usePlayer()
