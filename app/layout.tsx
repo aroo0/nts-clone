@@ -6,9 +6,7 @@ import QueryProvider from "@/providers/QueryProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import MixtapeRadio from "@/components/MixtapeRadio";
 import EpisodeRadio from "@/components/EpisodeRadio";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import Link from "next/link";
+
 
 const arimo = Arimo({ subsets: ["latin"], weight: "400" });
 
@@ -22,12 +20,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createServerComponentClient({ cookies });
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
   return (
     <html lang="en" className={arimo.className}>
       <QueryProvider>

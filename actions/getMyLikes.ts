@@ -3,6 +3,9 @@ import { cookies } from "next/headers";
 
 type agregator = "Shows" | "Episodes";
 
+export const dynamic = 'force-dynamic'
+
+
 const getMyLikes = async (table: string, agregator: agregator) => {
   const supabase = createServerComponentClient<Database>({ cookies });
   const {

@@ -3,6 +3,9 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import AuthForm from "../components/AuthForm";
 
+export const dynamic = 'force-dynamic'
+
+
 const Join = async () => {
   const supabase = createServerComponentClient<Database>({ cookies });
   const {
