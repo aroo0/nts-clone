@@ -46,7 +46,7 @@ const page = async ({ searchParams }: pageProps) => {
     <div className="w-full mt-12 pb-12">
       <div className="px-6 mx-auto grid max-w-[750px] gap-2">
         <h1 className="text-2xl font-extrabold">
-          Search results for "{query}"
+          Search results for &quot;{query}&quot;
         </h1>
         <nav className="flex gap-2 border-b border-white text-xs font-extrabold uppercase text-neutral-200">
           <Link

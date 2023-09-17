@@ -5,7 +5,6 @@ import { ExploreColection } from "@/types/shows";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import ExploreEpisodeItem from "./ExploreEpisodeItem";
 import ExploreFeed from "./ExploreFeed";
 import { searchQueryInterface } from "../types";
 import queryString from "query-string";
@@ -46,7 +45,7 @@ const Results: React.FC<ResultsProps> = ({ searchQuery }) => {
       }
     };
     fetchInitData();
-  }, [searchQuery]);
+  }, [searchQuery, url]);
 
   if (isLoading) {
     return (

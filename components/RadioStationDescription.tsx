@@ -31,23 +31,23 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
     } else {
       setIsPlaying(false);
     }
-  }, [activePlayer]);
-
-  if (!station || isLoading) {
-    return;
-  }
+  }, [activePlayer, stationName]);
 
   const detailsInfo = station?.now.embeds.details;
 
   const currentAuditionDurationRange = useFormattedTimeRange(
-    station?.now.start_timestamp,
-    station?.now.end_timestamp,
+    station!.now.start_timestamp,
+    station!.now.end_timestamp,
   );
 
   const nextAuditionDurationRange = useFormattedTimeRange(
-    station?.next.start_timestamp,
-    station?.next.end_timestamp,
+    station!.next.start_timestamp,
+    station!.next.end_timestamp,
   );
+
+  if (!station || isLoading) {
+    return;
+  }
 
   return (
     <div className="relative border-b border-white lg:border-b-0 lg:first:border-r">
@@ -106,7 +106,7 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
             }
           >
             <Image
-              src={detailsInfo.media.picture_medium_large}
+              src={detailsInfo!.media.picture_medium_large}
               className="object-cover brightness-75 transition group-hover:brightness-50"
               fill
               sizes="800px 800px"

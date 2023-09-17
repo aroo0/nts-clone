@@ -35,7 +35,7 @@ const RadioStation: React.FC<RadioStationProps> = ({
     } else {
       setIsPlaying(false);
     }
-  }, [activePlayer]);
+  }, [activePlayer, stationName]);
 
   const isLoadingAudio = useAudioLoadingState();
 

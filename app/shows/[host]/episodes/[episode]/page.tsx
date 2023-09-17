@@ -23,10 +23,10 @@ const EpisodePage: React.FC<EpisodePageProps> = async ({
 }) => {
   const episodeData = await getEpisodeData(host, episode);
   const showData = await getShowData(host);
+  const episodeDate = useDate(episodeData!.updated);
+
 
   if (!episodeData || !showData) return notFound();
-
-  const episodeDate = useDate(episodeData.updated);
 
   return (
     <div className="w-full lg:relative lg:min-h-full lg:pt-[78px]">

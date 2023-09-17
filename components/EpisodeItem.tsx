@@ -27,6 +27,8 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ episodeData }) => {
     },
   });
 
+  const covertedDate = useDate(episodeData.updated)
+
   if (!showData || isLoading) {
     return <EpisodeItemSkleleton />;
   }
@@ -55,7 +57,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ episodeData }) => {
         className="mt-1 p-2 transition hover:bg-white hover:text-black"
       >
         <div className="flex items-center justify-between">
-          <span className="text-xs">{useDate(episodeData.updated)}</span>
+          <span className="text-xs">{covertedDate}</span>
           <span className="text-xs uppercase">{episodeData.location_long}</span>
         </div>
         <h2 className="mt-1 font-extrabold uppercase leading-tight">

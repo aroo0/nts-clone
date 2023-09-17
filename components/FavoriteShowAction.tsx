@@ -53,7 +53,7 @@ const FavoriteShowAction: React.FC<FavoriteShowActionProps> = ({
     };
 
     getIsFavorite();
-  }, [supabase, setIsFavorite, data]);
+  }, [supabase, setIsFavorite, data, alias]);
 
   const handleFavorite = async () => {
     const {

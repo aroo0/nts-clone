@@ -69,7 +69,7 @@ const MixTapePageItem = ({ params }: MixTapePageItemProps) => {
         (vidRef.current! as HTMLVideoElement).play();
       }
     }
-  }, [activePlayer, vidRef]);
+  }, [activePlayer, vidRef, data?.mixtape_alias]);
 
   if (isLoading) return <div>Loading</div>;
 

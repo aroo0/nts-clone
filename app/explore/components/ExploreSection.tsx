@@ -37,7 +37,7 @@ const ExploreSection: React.FC<ExploreSectionProps> = ({
       setSelectedDrawer("Results");
     }
     setSearchQuery({ moods: moods, genres: genres });
-  }, [searchParams]);
+  }, [searchParams, genres, moods]);
 
   useEffect(() => {
     const query = {
@@ -47,7 +47,7 @@ const ExploreSection: React.FC<ExploreSectionProps> = ({
 
     const url = qs.stringifyUrl({ url: "/explore", query: query });
     router.push(url);
-  }, [searchQuery]);
+  }, [searchQuery, router]);
 
   return (
     <div className="mt-6 grid gap-6">

@@ -54,7 +54,7 @@ const SaveEpisodeAction: React.FC<SaveEpisodeActionProps> = ({
     };
 
     getIsLiked();
-  }, [supabase, setIsLiked, data]);
+  }, [supabase, setIsLiked, data, alias]);
 
 
   const handleLikeEpisode = async () => {
