@@ -6,15 +6,12 @@ interface ButtonProps {
   name: drawerTypes;
   selectedDrawer: string;
   setSelectedDrawer: (value: drawerTypes) => void;
-
 }
-
 
 const ExploreButton: React.FC<ButtonProps> = ({
   name,
   selectedDrawer,
-  setSelectedDrawer
-
+  setSelectedDrawer,
 }) => {
   const handleClick = () => {
     if (selectedDrawer === name) return setSelectedDrawer("Results");

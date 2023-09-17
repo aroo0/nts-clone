@@ -30,7 +30,7 @@ const PlayPauseExploreEpisodeToggle: React.FC<
     } else {
       setIsPlaying(false);
     }
-  }, [activePlayer, data, episodePathname]);
+  }, [activePlayer, episodePathname]);
 
   return (
     <button

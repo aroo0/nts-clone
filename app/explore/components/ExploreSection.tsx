@@ -37,7 +37,7 @@ const ExploreSection: React.FC<ExploreSectionProps> = ({
       setSelectedDrawer("Results");
     }
     setSearchQuery({ moods: moods, genres: genres });
-  }, [searchParams, genres, moods]);
+  }, [searchParams]);
 
   useEffect(() => {
     const query = {
