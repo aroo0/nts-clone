@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useDate } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { API_PATH, API_URL } from "@/const/api";
 import toast from "react-hot-toast";
-import EpisodeItemSkleleton from "./skeletons/EpisodeItemSkleleton";
+import EpisodeItemSkleleton from "./EpisodeItemSkleleton";
 
 interface EpisodeItemProps {
   episodeData: Episode;
@@ -27,7 +27,7 @@ const EpisodeItem: React.FC<EpisodeItemProps> = ({ episodeData }) => {
     },
   });
 
-  const covertedDate = useDate(episodeData.updated)
+  const covertedDate = useDate(episodeData.updated);
 
   if (!showData || isLoading) {
     return <EpisodeItemSkleleton />;
