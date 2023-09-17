@@ -144,7 +144,7 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
                 isPlaying && "text-black",
               )}
             >
-              {detailsInfo.name}
+              {detailsInfo!.name}
             </div>
             <div
               className={twMerge(
@@ -152,7 +152,7 @@ const RadioStationDescription: React.FC<RadioStationDescriptionProps> = ({
                 isPlaying && "text-black",
               )}
             >
-              {detailsInfo.description}
+              {detailsInfo!.description}
             </div>
           </div>
         </div>

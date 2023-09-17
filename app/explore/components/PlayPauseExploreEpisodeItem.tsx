@@ -39,10 +39,10 @@ const PlayPauseExploreEpisodeToggle: React.FC<
         toggleRadio({
           stationName: episodePathname!,
           type: "episode",
-          source: data.audio_sources[0].url,
-          sourceType: data.audio_sources[0].source,
+          source: data.audio_sources![0].url,
+          sourceType: data.audio_sources![0].source,
           info: {
-            image: data.image.small,
+            image: data.image!.small,
             date: data.local_date,
             name: data.title,
             tracklist: data.article.path,

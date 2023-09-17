@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 import ExploreFeed from "./ExploreFeed";
 import { searchQueryInterface } from "../types";
 import queryString from "query-string";
-import EpisodeItemSkleleton from "@/components/skeletons/EpisodeItemSkleleton";
+import EpisodeItemSkleleton from "../../../components/skeletons/EpisodeItemSkleleton";
 
 export const revalidate = 0;
 

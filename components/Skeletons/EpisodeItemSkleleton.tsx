@@ -1,5 +1,5 @@
 
-const EpisodeItemSkleleton: React.FC = ({}) => {
+const EpisodeItemSkleleton = () => {
   return (
     <div className="duration-[3s] flex h-full animate-pulse flex-col border  border-neutral-800 p-2 ">
       <div className=" pulse relative h-[200px] w-full bg-neutral-800"></div>
