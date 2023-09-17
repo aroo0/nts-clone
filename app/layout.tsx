@@ -7,6 +7,7 @@ import ToasterProvider from "@/providers/ToasterProvider";
 import MixtapeRadio from "@/components/MixtapeRadio";
 import EpisodeRadio from "@/components/EpisodeRadio";
 
+export const revalidate = 0
 
 const arimo = Arimo({ subsets: ["latin"], weight: "400" });
 
