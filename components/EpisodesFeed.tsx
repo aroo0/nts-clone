@@ -19,7 +19,7 @@ const EpisodesFeed: React.FC<EpisodesFeedProps> = ({ initData, apiPath }) => {
     threshold: 1,
   });
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: [`${apiPath} query`],
     queryFn: async ({ pageParam = 12 }) => {
       const { data } = await axios.get(`${apiPath}?offset=${pageParam}
@@ -38,7 +38,6 @@ const EpisodesFeed: React.FC<EpisodesFeedProps> = ({ initData, apiPath }) => {
 
   useEffect(() => {
     if (entry?.isIntersecting) {
-      console.log("fetch");
       fetchNextPage();
     }
   }, [entry, fetchNextPage]);

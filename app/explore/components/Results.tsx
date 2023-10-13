@@ -10,7 +10,6 @@ import { searchQueryInterface } from "../types";
 import queryString from "query-string";
 import EpisodeItemSkleleton from "@/components/EpisodeItemSkleleton";
 
-export const revalidate = 0;
 
 interface ResultsProps {
   searchQuery: searchQueryInterface;
