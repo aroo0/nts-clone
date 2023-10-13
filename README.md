@@ -1,5 +1,8 @@
 # NTS Radio Clone
 
+## Demo
+A live demo of the app is available at [nts-clone.vercel.app](https://nts-clone.vercel.app/).
+
 ## Technology Stack
 - React
 - Next.js
